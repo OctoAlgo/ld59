@@ -5,6 +5,13 @@ public static class Names
 {
     public static List<string> firstNames = new List<string>()
     {
+        "Glargina",
+        "Ziffany",
+        "Blorpina",
+        "Glurgy",
+        "Blibsa",
+        "Gooette",
+        "Alienetta",
         "Glorb",
         "Flurb",
         "Zarn",

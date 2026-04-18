@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 564768636212301188}
   - component: {fileID: 7352557685850894771}
   - component: {fileID: 5469417851998959899}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 7073158328333958453}
   - component: {fileID: 2404051839622212839}
   - component: {fileID: 1694438060749292768}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 5138203451716046133}
   - component: {fileID: 1546371416081395526}
   - component: {fileID: 1270775738841482729}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Red Planet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,9 +378,9 @@ TrailRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1629687089
+  m_SortingLayer: 1
+  m_SortingOrder: 15
   m_MaskInteraction: 0
   m_Time: 5
   m_PreviewTimeScale: 1
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 2443985741477447736}
   - component: {fileID: 3074248227295558401}
   - component: {fileID: 4381721236503537389}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -531,7 +531,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &4381721236503537389
 MonoBehaviour:
