@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// If you read this, please put your own alien names in here!
+
 public static class Names
 {
     public static List<string> firstNames = new List<string>()
