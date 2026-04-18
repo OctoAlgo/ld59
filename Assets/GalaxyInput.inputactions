@@ -1,0 +1,55 @@
+{
+    "version": 1,
+    "name": "GalaxyInput",
+    "maps": [
+        {
+            "name": "Galaxy Screen",
+            "id": "ea2086fe-d8b7-4b49-a089-aca84db4088b",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "a757c355-2592-44a4-a12c-4e9e22c6cf6c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Look",
+                    "type": "Button",
+                    "id": "6d3479a5-76b0-4081-8260-2b854be4dc4f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7789f13a-248c-43c6-bc4c-cb259ffffcf7",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "554c1084-29d0-4c42-9404-7d39d5457ddf",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
