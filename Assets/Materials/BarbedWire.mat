@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pixelated Screen
-  m_Shader: {fileID: 101, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: BarbedWire
+  m_Shader: {fileID: -6465566751694194690, guid: 351e60c203dd59641ac8c4fdfa9e91fc, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -49,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Height_Map:
-        m_Texture: {fileID: 2800000, guid: ea1a704e3b75a4d4680a8eebde78b321, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -57,7 +57,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: 07375fbfd0b50084d876eea792a5e451, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -65,7 +65,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal_Map:
-        m_Texture: {fileID: 2800000, guid: 3c14f65d147c955458dd41db08e6fd4a, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -114,13 +114,13 @@ Material:
     - _GlossyReflections: 0
     - _Height_Amount: 1
     - _Height_Map_Downscale: 1
-    - _Height_Map_Resolution: 128
+    - _Height_Map_Resolution: 16
     - _Main_Texture_Downscale: 1
-    - _Main_Texture_Resolution: 128
+    - _Main_Texture_Resolution: 16
     - _Metallic: 0
-    - _Normal_Amount: 0
+    - _Normal_Amount: 1
     - _Normal_Map_Downscale: 1
-    - _Normal_Map_Resolution: 128
+    - _Normal_Map_Resolution: 16
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
@@ -133,6 +133,7 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _WorkflowMode: 1
+    - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
@@ -141,7 +142,7 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &6319342547593120924
+--- !u!114 &9060503383947413584
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,5 +153,5 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
   version: 10

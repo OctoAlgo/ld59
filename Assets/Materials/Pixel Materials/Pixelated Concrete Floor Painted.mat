@@ -155,7 +155,7 @@ Material:
     - _NormalAmount: 1
     - _NormalMapAmount: 0.09
     - _NormalMapResolution: 256
-    - _Normal_Amount: 1
+    - _Normal_Amount: 20
     - _Normal_Map_Downscale: 1
     - _Normal_Map_Resolution: 1024
     - _OcclusionStrength: 1
