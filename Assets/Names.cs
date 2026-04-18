@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// If you read this, please put your own alien names in here!
-
 public static class Names
 {
     public static List<string> firstNames = new List<string>()
@@ -50,6 +48,16 @@ public static class Names
         "Goop",
         "Zoopenheim",
     };
+
+    public static string GetRandomFirstName()
+    {
+        return firstNames[Random.Range(0, firstNames.Count)];
+    }
+
+    public static string GetRandomLastName()
+    {
+        return lastNames[Random.Range(0, lastNames.Count)];
+    }
 
 
 }
