@@ -24,6 +24,11 @@ public static class Names
         "Gnorts",
         "Zorp",
         "Snurp",
+        "John",
+        "Jane",
+        "Spliffany",
+        "Glibberina",
+        "Zorbletta",
     };
 
     public static List<string> lastNames = new List<string>()
@@ -37,6 +42,13 @@ public static class Names
         "Zibblezorp",
         "Zorbelstein",
         "von Blorpenberg",
+        "Glorpenstein",
+        "von Zorble",
+        "Smith",
+        "Doe",
+        "Blorp",
+        "Goop",
+        "Zoopenheim",
     };
 
 

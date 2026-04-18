@@ -6,7 +6,6 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     { 
-        // Ensure the GameManager persists across scenes
         DontDestroyOnLoad(this.gameObject);
 
         if(Instance == null)
@@ -31,5 +30,15 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void EnterConsole()
+    {
+        ConsoleManager.Instance.Select();
+    }
+
+    public void FreezPlayerInput()
+    {
+        //TODO: Freeze player so he cant move while inputting text.
     }
 }
