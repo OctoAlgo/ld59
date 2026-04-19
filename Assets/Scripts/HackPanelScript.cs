@@ -9,7 +9,7 @@ public class HackPanelScript : MonoBehaviour
 
     public int stage = 0;
 
-    void StartGame()
+    public void StartGame()
     {
         WireGame.SetActive(true);
         GameObject.Find("Wire Game Manager").GetComponent<WireGameManager>().LoadGame();
@@ -37,10 +37,9 @@ public class HackPanelScript : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         Unload();
-        StartGame();
     }
 
-    void Unload()
+    public void Unload()
     {
         WireGame.SetActive(false);
         UnscrambleGame.SetActive(false);
