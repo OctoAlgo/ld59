@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,6 +18,9 @@ private bool isSelected = false;
 private bool blockInput = false;
 public TMPro.TMP_InputField inputField;
 public TMPro.TMP_Text consoleOutput;
+
+
+int selectedSolarSystem;
 
     void Awake()    
     { 
@@ -86,6 +90,8 @@ public TMPro.TMP_Text consoleOutput;
         string command = parts[0].ToLower();
         string[] args = parts.Skip(1).ToArray();
 
+        consoleOutput.text += Environment.NewLine + "> " + cmd;
+
         switch(command)
         {
             case "help":
@@ -135,8 +141,11 @@ public TMPro.TMP_Text consoleOutput;
         yield return new WaitForSeconds(2f);
         consoleOutput.text += Environment.NewLine + "[LOG] Connection established. Launching Planet View...";
         yield return new WaitForSeconds(1f);
-        consoleOutput.text += Environment.NewLine + "> Lol. Not implemented yet. Get fucked.";
+        //consoleOutput.text += Environment.NewLine + "> Lol. Not implemented yet. Get fucked.";
         //TODO Planet View
+
+        GameManager.Instance.OpenPlanetView();
+        ConsoleManager.Instance.Deselect();
 
         blockInput = false;
         Select();
@@ -160,5 +169,22 @@ public TMPro.TMP_Text consoleOutput;
 
         blockInput = false;
         Select();
+    }
+
+    public IEnumerator SelectPlanet(Alien alien)
+    {
+        PlanetsManager.Instance.planetCamera.enabled = false;
+        ConsoleManager.Instance.consoleCamera.enabled = true;
+        GameManager.Instance.playerCamera.enabled = false;
+        ConsoleManager.Instance.consoleCamera.targetTexture = null;
+
+        consoleOutput.text += Environment.NewLine + $"[LOG] Intercepted SIGNAL at hash '{alien.hashX}:{alien.hashY}'";
+        consoleOutput.text += Environment.NewLine + $"[LOG] NAME {alien.GetFullName()}";
+        yield return new WaitForSeconds(.3f); // Simulate delay
+        consoleOutput.text += Environment.NewLine + $"[LOG] LIKES: {alien.likes}";
+        yield return new WaitForSeconds(.3f); // Simulate delay
+        consoleOutput.text += Environment.NewLine + $"[LOG] DISLIKES: {alien.dislikes}";
+        yield return new WaitForSeconds(.3f); // Simulate delay
+        consoleOutput.text += Environment.NewLine + $"[LOG] If you wish to interact with this specimen, align your satellite dish to the corresponding hash and type 'date'.";
     }
 }

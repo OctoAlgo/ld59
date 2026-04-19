@@ -17,7 +17,7 @@ public PlanetMovement currentPlanet;
     {
         if(Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = PlanetsManager.Instance.planetCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, interactableLayer))
             {
                 Debug.Log("Clicked on: " + hit.collider.gameObject.name);

@@ -14,10 +14,10 @@ public Transform planetRotation;
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(Camera.main.transform);
+        transform.LookAt(PlanetsManager.Instance.planetCamera.transform.position, Vector3.up);
 
         // Make the billboard face the camera directly by adjusting its rotation, using the camera's forward vector
-        transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+        transform.rotation = Quaternion.LookRotation(transform.position - PlanetsManager.Instance.planetCamera.transform.position);
 
-    }
+    }   
 }

@@ -11,6 +11,9 @@ public LineRenderer lineRenderer;
 
 public bool isSelected = false;
 
+public Alien loveInterest;
+
+
 public GameObject selectionIndicator;
 
 
@@ -29,6 +32,12 @@ public GameObject selectionIndicator;
             transform.RotateAround(orbitPivot.position, Vector3.up, orbitSpeed * Time.deltaTime);
         }
 
+    }
+
+    public void SignalPlanet()
+    {
+        Debug.Log($"Signaling planet with alien: {loveInterest.firstName} {loveInterest.lastName}");
+        PlanetsManager.Instance.SignalPlanet(loveInterest);
     }
 
 }

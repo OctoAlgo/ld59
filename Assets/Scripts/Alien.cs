@@ -9,6 +9,8 @@ public class Alien
     public string firstName;
     public string lastName;
 
+    public string likes;
+    public string dislikes;
     public float loveMeter;
 
     public Color color;
@@ -17,10 +19,12 @@ public class Alien
     public string hashX;
     public string hashY;
 
-    public Alien(string firstName, string lastName, Color color, Image image)
+    public Alien(string firstName, string lastName, string likes, string dislikes, Color color, Image image)
     {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.likes = likes;
+        this.dislikes = dislikes;
         this.loveMeter = 0f;
         this.color = color;
         this.image = image;

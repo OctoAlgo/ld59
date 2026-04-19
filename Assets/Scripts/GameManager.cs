@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     public string selectedHashX;
     public string selectedHashY;
 
+    public Camera playerCamera;
+
+
     void Awake()
     { 
         DontDestroyOnLoad(this.gameObject);
@@ -54,6 +57,9 @@ public class GameManager : MonoBehaviour
             Alien newAlien = new Alien(
                 Names.GetRandomFirstName(),
                 Names.GetRandomLastName(),
+                Names.GetRandomLike(),
+                Names.GetRandomDislike(),
+
                 Random.ColorHSV(),
                 null //TODO: Assign image
             );
@@ -72,7 +78,7 @@ public class GameManager : MonoBehaviour
         ConsoleManager.Instance.consoleCamera.forceIntoRenderTexture = false;
         ConsoleManager.Instance.consoleCamera.targetTexture = null;
 
-        Camera.main.enabled = false;
+        GameManager.Instance.playerCamera.enabled = false;
     }
 
     public void ExitConsole()
@@ -84,7 +90,7 @@ public class GameManager : MonoBehaviour
         ConsoleManager.Instance.consoleCamera.forceIntoRenderTexture = true;
         ConsoleManager.Instance.consoleCamera.targetTexture = ConsoleManager.Instance.consoleRenderTexture;
 
-        Camera.main.enabled = true;
+        GameManager.Instance.playerCamera.enabled = true;
     }
 
     public void OpenConsoleView()
@@ -94,7 +100,11 @@ public class GameManager : MonoBehaviour
 
     public void OpenPlanetView()
     {
-        
+        PlanetsManager.Instance.planetCamera.enabled = true;
+        PlanetsManager.Instance.planetCamera.targetTexture = null;
+        ConsoleManager.Instance.consoleCamera.targetTexture = ConsoleManager.Instance.consoleRenderTexture;
+
+        GameManager.Instance.playerCamera.enabled = false;
     }
 
     public void FreezePlayerInput()
