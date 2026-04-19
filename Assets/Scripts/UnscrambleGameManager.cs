@@ -9,7 +9,7 @@ public class UnscrambleGameManager : MonoBehaviour
 {
     public bool isComplete = false;
 
-    List<string> WordList = new List<string>() { "SATELLITE", "ALIEN", "PLANET", "GALAXY", "UNIVERSE" };
+    List<string> WordList = new List<string>() { "SATELLITE", "ALIEN", "PLANET", "GALAXY", "UNIVERSE", "SIGNAL" };
 
     string CurrentWord;
     string scrambledWord;
