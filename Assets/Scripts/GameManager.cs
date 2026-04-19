@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,9 +10,13 @@ public class GameManager : MonoBehaviour
     
     public Alien winningAlien;
     public Alien selectedAlien;
+    public int minPlanets;
+    public int maxPlanetsExclusive;
+
     [SerializeField]
-    public List<Alien> aliens;
-    public int planetCount = 10;
+
+    public List<SolarSystem> systems;
+    public int systemCount = 5;
 
     public UnityEvent OnConsoleEntered; 
     public UnityEvent OnConsoleExited;
@@ -22,25 +28,26 @@ public class GameManager : MonoBehaviour
 
 
     void Awake()
-    { 
-        DontDestroyOnLoad(this.gameObject);
-
-        if(Instance == null)
+    {
+        if (Instance != null && Instance != this)
         {
-            Instance = this;
-        }
-        else
-        {
-            Debug.LogWarning("Multiple instances of GameManager detected. Destroying duplicate.");
+            Debug.LogWarning("Multiple GameManagers. Destroying duplicate.");
             Destroy(gameObject);
+            return;
         }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GenerateAliens();
+        systems = GalaxyGenerator.GenerateGalaxy(systemCount, minPlanets, maxPlanetsExclusive);
+        winningAlien = PickWinningAlien();
+        // TODO: Replace PickWinningAlien here if we decide to do some kind of condition having to be met to have a winning one.
+
+        DebugLogGalaxy();
     }
 
     // Update is called once per frame
@@ -49,47 +56,60 @@ public class GameManager : MonoBehaviour
         
     }
 
-    void GenerateAliens()
+    Alien PickWinningAlien()
     {
-        aliens = new List<Alien>();
-        for(int i = 0; i < planetCount; i++)
-        {
-            Alien newAlien = new Alien(
-                Names.GetRandomFirstName(),
-                Names.GetRandomLastName(),
-                Names.GetRandomLike(),
-                Names.GetRandomDislike(),
-
-                Random.ColorHSV(),
-                null //TODO: Assign image
-            );
-
-            aliens.Add(newAlien);
-        }
-
+        
+        var all = AllAliens.ToList();
+        return all[UnityEngine.Random.Range(0, all.Count)];
     }
 
-    public void EnterConsole()
+    void DebugLogGalaxy()
+{
+    foreach (var sys in systems)
+    {
+        Debug.Log($"System: {sys.name} ({sys.planets.Count} planets)");
+        foreach (var p in sys.planets)
+        {
+            var a = p.loveInterest;
+            Debug.Log($"  {p.name} — {a.GetFullName()} likes {a.likes}, hates {a.dislikes}");
+        }
+    }
+}
+
+    public void EnterConsole(ConsoleManager consoleManager)
     {
         FreezePlayerInput();
-        ConsoleManager.Instance.Select();
-        OnConsoleEntered.Invoke();
-
-        ConsoleManager.Instance.consoleCamera.forceIntoRenderTexture = false;
-        ConsoleManager.Instance.consoleCamera.targetTexture = null;
+        Debug.Log("Enter Console with" + consoleManager.name);
+        
 
         GameManager.Instance.playerCamera.enabled = false;
+        SatelliteConsoleManager.Instance.consoleCamera.enabled = false;
+        ConsoleManager.Instance.consoleCamera.enabled = false;
+        PlanetsManager.Instance.planetCamera.enabled = false;
+
+        consoleManager.Select();
+        OnConsoleEntered.Invoke();
+
+        //consoleManager.consoleCamera.forceIntoRenderTexture = false;
+        consoleManager.consoleCamera.targetTexture = null;
+        consoleManager.consoleCamera.enabled = true;
     }
 
-    public void ExitConsole()
+    public void ExitConsole(ConsoleManager consoleManager)
     {
         UnfreezePlayerInput();
-        ConsoleManager.Instance.Deselect();
+
+        GameManager.Instance.playerCamera.enabled = true;
+        SatelliteConsoleManager.Instance.consoleCamera.enabled = false;
+        ConsoleManager.Instance.consoleCamera.enabled = false;
+        PlanetsManager.Instance.planetCamera.enabled = false;
+
+        consoleManager.Deselect();
         OnConsoleExited.Invoke();
 
-        ConsoleManager.Instance.consoleCamera.forceIntoRenderTexture = true;
-        ConsoleManager.Instance.consoleCamera.targetTexture = ConsoleManager.Instance.consoleRenderTexture;
-
+        //consoleManager.consoleCamera.forceIntoRenderTexture = true;
+        consoleManager.consoleCamera.targetTexture = consoleManager.consoleRenderTexture;
+        consoleManager.consoleCamera.enabled = false;
         GameManager.Instance.playerCamera.enabled = true;
     }
 
@@ -103,6 +123,7 @@ public class GameManager : MonoBehaviour
         PlanetsManager.Instance.planetCamera.enabled = true;
         PlanetsManager.Instance.planetCamera.targetTexture = null;
         ConsoleManager.Instance.consoleCamera.targetTexture = ConsoleManager.Instance.consoleRenderTexture;
+        SatelliteConsoleManager.Instance.consoleCamera.targetTexture = SatelliteConsoleManager.Instance.consoleRenderTexture;
 
         GameManager.Instance.playerCamera.enabled = false;
     }
@@ -118,5 +139,65 @@ public class GameManager : MonoBehaviour
         //TODO: Unfreeze player input.
     }
 
+    public Alien GetAlienByHash(string hashX, string hashY)
+    {
+        return AllAliens.FirstOrDefault(a => a.hashX == hashX && a.hashY == hashY);
+    }
 
+    public IEnumerable<Planet> AllPlanets => systems.SelectMany(s => s.planets);
+
+    public IEnumerable<Alien> AllAliens => systems.SelectMany(s => s.planets).Select(p => p.loveInterest).Where(a => a != null);
+
+    // Dunno if we ever need these, but this architecture is cool af
+    // EDIT: I needed them :)
+
+}
+
+public static class GalaxyGenerator
+{
+
+    public static Alien GenerateAlien() 
+    {
+        Alien tmp = new Alien(
+                Names.GetRandomFirstName(),
+                Names.GetRandomLastName(),
+                Names.GetRandomLike(),
+                Names.GetRandomDislike(),
+                UnityEngine.Random.ColorHSV(),
+                null //TODO: Assign image
+            );
+
+        return tmp;
+    }
+    public static Planet GeneratePlanet()
+    {
+        var planet = new Planet(
+            Names.GetRandomPlanet(),
+            Color.HSVToRGB(UnityEngine.Random.value, UnityEngine.Random.Range(0.5f, 1f), UnityEngine.Random.Range(0.6f, 1f)),
+            UnityEngine.Random.Range(0.8f, 5f),   // size variation
+            UnityEngine.Random.Range(5f, 15f)        // orbit speed variation
+        );
+        planet.loveInterest = GenerateAlien();
+        return planet;
+    }
+    public static SolarSystem GenerateSystem(int minPlanets, int maxPlanetsExclusive)
+    {
+        var system = new SolarSystem(Names.GetRandomSolarSystem());
+        int planetCount = UnityEngine.Random.Range(minPlanets, maxPlanetsExclusive); // 2-5 planets?
+        for (int i = 0; i < planetCount; i++)
+        {
+            system.planets.Add(GeneratePlanet());
+        }
+        return system;
+    }
+
+    public static List<SolarSystem> GenerateGalaxy(int systemCount, int minPlanets, int maxPlanetsExclusive)
+    {
+        var galaxy = new List<SolarSystem>();
+        for (int i = 0; i < systemCount; i++)
+        {
+            galaxy.Add(GenerateSystem(minPlanets, maxPlanetsExclusive));
+        }
+        return galaxy;
+    }
 }

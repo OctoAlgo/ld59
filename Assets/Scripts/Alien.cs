@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Alien 
@@ -18,6 +18,8 @@ public class Alien
 
     public string hashX;
     public string hashY;
+
+    private static System.Random rand = new System.Random();
 
     public Alien(string firstName, string lastName, string likes, string dislikes, Color color, Image image)
     {
@@ -38,32 +40,31 @@ public class Alien
     }
 
 
-    public void GenerateHashes()
-{
-    List <String> hashes = new List<String>();
-
-    hashX = GenerateHash();
-    hashY = GenerateHash();
-}
-
-public String GenerateHash()
-{
-    string chars = "123456789ABCDEF";
-    string hash = "";
-    System.Random rand = new System.Random();
-
-    for(int i = 0; i < 4; i++)
+        public void GenerateHashes()
     {
-        hash += chars[rand.Next(0, chars.Length)];
+
+        hashX = GenerateHash();
+        hashY = GenerateHash();
     }
 
-    return hash;
+    public String GenerateHash()
+    {
+        string chars = "123456789ABCDEF";
+        string hash = "";
 
-}
+        for(int i = 0; i < 4; i++)
+        {
+            hash += chars[UnityEngine.Random.Range(0, chars.Length)];
+        }
 
-public enum AlienType
-{
-    
-}
+        return hash;
 
+    }
+
+    /*
+    public enum AlienType
+    {
+        
+    }
+    */
 }

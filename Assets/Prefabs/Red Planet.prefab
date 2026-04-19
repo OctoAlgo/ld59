@@ -369,6 +369,7 @@ GameObject:
   - component: {fileID: 5138203451716046133}
   - component: {fileID: 1546371416081395526}
   - component: {fileID: 1270775738841482729}
+  - component: {fileID: 6168139773575567777}
   m_Layer: 6
   m_Name: Red Planet
   m_TagString: Untagged
@@ -464,18 +465,27 @@ MonoBehaviour:
   orbitPivot: {fileID: 0}
   lineMaterial: {fileID: 2100000, guid: 8ad9191f85ae5269fa596bf3a316835b, type: 2}
   orbitSpeed: 10
+  isHUDMovement: 0
   lineRenderer: {fileID: 0}
   isSelected: 0
-  loveInterest:
-    firstName: 
-    lastName: 
-    likes: 
-    dislikes: 
-    loveMeter: 0
+  planetData:
+    name: 
     color: {r: 0, g: 0, b: 0, a: 0}
-    hashX: 
-    hashY: 
+    size: 0
+    orbitSpeed: 0
+    loveInterest:
+      firstName: 
+      lastName: 
+      likes: 
+      dislikes: 
+      loveMeter: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+      image: {fileID: 0}
+      hashX: 
+      hashY: 
+    discovered: 0
   selectionIndicator: {fileID: 6091539517666462198}
+  planetText: {fileID: 1694438060749292768}
 --- !u!96 &1270775738841482729
 TrailRenderer:
   serializedVersion: 4
@@ -595,6 +605,27 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!135 &6168139773575567777
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3646463266321085742}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6091539517666462198
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,18 +681,27 @@ MonoBehaviour:
   orbitPivot: {fileID: 3118276002492227531}
   lineMaterial: {fileID: 0}
   orbitSpeed: 5
+  isHUDMovement: 1
   lineRenderer: {fileID: 0}
   isSelected: 0
-  loveInterest:
-    firstName: 
-    lastName: 
-    likes: 
-    dislikes: 
-    loveMeter: 0
+  planetData:
+    name: 
     color: {r: 0, g: 0, b: 0, a: 0}
-    hashX: 
-    hashY: 
+    size: 0
+    orbitSpeed: 0
+    loveInterest:
+      firstName: 
+      lastName: 
+      likes: 
+      dislikes: 
+      loveMeter: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+      image: {fileID: 0}
+      hashX: 
+      hashY: 
+    discovered: 0
   selectionIndicator: {fileID: 0}
+  planetText: {fileID: 0}
 --- !u!223 &3074248227295558401
 Canvas:
   m_ObjectHideFlags: 0

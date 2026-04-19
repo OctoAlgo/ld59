@@ -1,10 +1,15 @@
+using System;
 using UnityEngine;
 
 public class PlanetsManager : MonoBehaviour
 {
     public static PlanetsManager Instance;
+    public GameObject sun;
     public GameObject planetPrefab;
     public Camera planetCamera;
+    public GameObject planetsHolder;
+
+    public SolarSystem currentSystem;
 
     void Awake()
     {
@@ -36,5 +41,30 @@ public class PlanetsManager : MonoBehaviour
     public void SignalPlanet(Alien alien)
     {
         ConsoleManager.Instance.StartCoroutine(ConsoleManager.Instance.SelectPlanet(alien));
+    }
+
+    internal void PopulatePlanets()
+    {
+        if(planetsHolder.transform.childCount > 0)
+        {
+            foreach (Transform child in planetsHolder.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        for(int i = 0; i < currentSystem.planets.Count; i++)
+        {
+            Planet planetData = currentSystem.planets[i];
+            float orbitRadius = 5f + i * 3f;
+            float angle = UnityEngine.Random.Range(0f, 360f) * Mathf.Deg2Rad;
+            Vector3 spawnPos = sun.transform.position + new Vector3(Mathf.Cos(angle) * orbitRadius, 0, Mathf.Sin(angle)) * orbitRadius;
+
+            GameObject tmp = Instantiate(planetPrefab, spawnPos, Quaternion.identity, planetsHolder.transform);
+            PlanetMovement move = tmp.GetComponent<PlanetMovement>();
+
+            move.planetData = planetData;
+            move.Init();
+        }
     }
 }

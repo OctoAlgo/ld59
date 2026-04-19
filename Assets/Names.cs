@@ -29,6 +29,7 @@ public static class Names
         "Zorbletta",
         "Dante",
         "Zara",
+        "Xen'thrakal the Unpronounceable",
     };
 
     public static List<string> lastNames = new List<string>()
@@ -50,8 +51,134 @@ public static class Names
         "Goop",
         "Zoopenheim",
         "Zmith",
-
+        "Slorpenheimer",
+        "Glibberworth",
+        "Zorbmeister",
+        "Flurbingtonshire",
+        "von Glorb",
+        "von Zoop",
+        "McBlorp",
+        "O'Glarg",
+        "Blorbenburg",
+        "Zibblington",
+        "Snorfelhausen",
+        "Wobblesworth",
+        "Glorpstein-Zorble",
+        "Flibberman",
+        "Goopworth III",
+        "Esquire"
     };
+
+    public static List <string> systemNames = new List<string>
+    {
+        "ALPHA GLORPULAR",
+        "XEN-004 PRIME",
+        "SHMILKY WAY",
+        "SOY WAY",
+        "BONE ZONE",
+        "The Solar System™",
+        "Sol",
+        "'MR. FRESH SODA', THE MOST DELICIOUS SODA, BUY NOW",
+        "CAT EMPORIUM",
+        "COSMIC OOZE",
+        "KLARF PRIME",
+        "MIGAITE",
+        "BOOF Prime",
+        "PHONK Zone",
+        "ANDROMEBRUH",
+        "CLUSTER F*",
+        "NULL SYSTEM",
+        "GRAPEFRUIT METHOD",
+        "UNDEFINED GALAXY",
+        "BRAINROT PRIME",
+        "THE RIZZLER CONSTELLATION",
+        "GYATTLACTICA",
+        "SMURF QUEUE",
+        "SIGMA CENTAURI",
+        "HAUNTED SECTOR",
+        "POPULAR HAZELNUT SPREAD",
+        "127.0.0.1",
+        "Idfk man, its like 4 AM",
+        "DEADLINE APPROACHING SYSTEM",
+        "YOU KNOW THE ONE ;)",
+        "SYSTEM NOT FOUND",
+        "NULL SYSTEM",
+        "coconut.jpg", // do not delete
+        "Ludum Dare 60",
+    };
+
+    public static List <string> planetNames = new List<string>
+{
+    "Glorbulon VII",
+    "Zorbax",
+    "Blargon Prime",
+    "Schmearth",
+    "Floopiter",
+    "Snarsus",
+    "Uraglorpus",
+    "Krunkus-B",
+    "Gleebax IX",
+    "Zarnok",
+    "Yeetron",
+    "Blipzor",
+    "PLANET",
+    "planet 2",
+    "Planet 2 (Electric Boogaloo)",
+    "That One Planet",
+    "The Big One",
+    "The Small One",
+    "The Medium One",
+    "Gary",
+    "Steve",
+    "Kevin Prime",
+    "New Kevin",
+    "Old Kevin",
+    "Not Earth",
+    "Definitely Not Earth",
+    "Legally Distinct Earth",
+    "Earth but Cooler",
+    "Tatooine (Copyright Pending)",
+    "Spliborp",
+    "Quorbital-9",
+    "Zlargnatha",
+    "Flurbulon",
+    "Goopworld",
+    "Cube Planet",
+    "The Flat One",
+    "Doughnut World",
+    "ERROR_PLANET_NAME_NOT_FOUND",
+    "[REDACTED]",
+    "NULL",
+    "Planet McPlanetface",
+    "Dave's Garage",
+    "Suburbia IV",
+    "The IRS Headquarters",
+    "A Slightly Damp Rock",
+    "Mostly Harmless",
+    "Magrathea (Unlicensed)",
+    "Ooze Prime",
+    "Bone Planet",
+    "Second Bone Planet",
+    "Thembulon",
+    "Zibberoo",
+    "Plunktopia",
+    "Chunkworld",
+    "The Planet Formerly Known As Twitter",
+    "Sentient Landfill",
+    "Mall Planet",
+    "Costco Prime",
+    "IKEA-o7",
+    "Crabworld",
+    "All The Crabs",
+    "The Crab Singularity",
+    "Glorpturn",
+    "Vibes-4",
+    "The Chill Zone",
+    "Unfinished Asset",
+    "placeholder_planet_FINAL_v2",
+    "placeholder_planet_FINAL_v2_FIXED",
+    "TODO: name this planet",
+};
 
     public static List <string> alienLikes = new List<string>() // or dislikes
     {
@@ -123,7 +250,8 @@ public static class Names
         "Cooking Sims",
         "Doing Drugs",
         "Doing Space Drugs",
-        "Not Doing Drugs"
+        "Not Doing Drugs",
+        "Free-to-Play Games"
     };
 
     public static string GetRandomFirstName()
@@ -144,5 +272,15 @@ public static class Names
     internal static string GetRandomLike()
     {
         return alienLikes[Random.Range(0, alienLikes.Count)];
+    }
+
+    internal static string GetRandomPlanet()
+    {
+        return planetNames[Random.Range(0, planetNames.Count)];
+    }
+
+    internal static string GetRandomSolarSystem()
+    {
+        return systemNames[Random.Range(0, systemNames.Count)];
     }
 }

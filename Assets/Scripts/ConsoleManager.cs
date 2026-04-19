@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.Linq;
+using System.Numerics;
+using Mono.Cecil;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class ConsoleManager : MonoBehaviour
@@ -14,8 +17,8 @@ public Camera consoleCamera;
 public RenderTexture consoleRenderTexture;
 
 public bool toggleSelected = false;
-private bool isSelected = false;
-private bool blockInput = false;
+internal bool isSelected = false;
+internal bool blockInput = false;
 public TMPro.TMP_InputField inputField;
 public TMPro.TMP_Text consoleOutput;
 
@@ -52,7 +55,7 @@ int selectedSolarSystem;
             if(Input.GetKeyDown(KeyCode.Return) && !blockInput)
             {
                 ParseCommand(inputField.text);
-                inputField.text = "";
+                inputField.text = "<mspace=20px>";
             }
         }
     }
@@ -84,6 +87,11 @@ int selectedSolarSystem;
         }
     }
 
+
+    // consoleOutput.text += Environment.NewLine + "";
+    // For copying
+
+
     void ParseCommand (string cmd)
     {
         string[] parts = cmd.Split(' ');
@@ -95,7 +103,7 @@ int selectedSolarSystem;
         switch(command)
         {
             case "help":
-                consoleOutput.text += Environment.NewLine + "Available commands: help, clear, planets, date";
+                consoleOutput.text += Environment.NewLine + "Available commands: help, clear, systems, planets, date";
                 Select();
                 break;
             case "clear":
@@ -103,8 +111,14 @@ int selectedSolarSystem;
                 Select();
                 break;
                 
+            case "systems":
+            StartCoroutine(ListSystems());
+            Select();
+            break;
+
             case "planets":
-            StartCoroutine(PlanetCommand());
+            HandlePlanetCommand(args);
+            //StartCoroutine(PlanetCommand());
             break;
 
             case "date":
@@ -127,11 +141,61 @@ int selectedSolarSystem;
         }
     }
 
+    private IEnumerator ListSystems()
+    {
+        var systems = GameManager.Instance.systems;
+        consoleOutput.text += Environment.NewLine + "[LOG] Scanning for systems with hot singles in your observable universe";
+        yield return new WaitForSeconds(.1f); // Simulate delay
+        consoleOutput.text += ".";
+        yield return new WaitForSeconds(.5f);
+        consoleOutput.text += ".";
+        yield return new WaitForSeconds(.8f);
+        consoleOutput.text += ".";
+        yield return new WaitForSeconds(2f);
+        
+        consoleOutput.text += Environment.NewLine + $"[LOG] Found and parsed {systems.Count} systems:";
+        for (int i = 0; i < systems.Count; i++)
+        {
+            consoleOutput.text += Environment.NewLine + $"  [{i + 1}] {systems[i].name}";
+            yield return new WaitForSeconds(.2f);
+        }
+        yield return new WaitForSeconds(.6f);
+        consoleOutput.text += Environment.NewLine + $"[LOG] Use 'planets <systemID>' for more info about the planets.";
+    }
+
+    private void HandlePlanetCommand(string[] args)
+    {
+        if(args.Length == 0)
+        {
+            consoleOutput.text += Environment.NewLine + "[ERR] No system specified. Usage: planets <system>";
+            Select();
+            return;
+        }
+
+        if(!int.TryParse(args[0], out int hit))
+        {
+            consoleOutput.text += Environment.NewLine + $"[ERR] {hit} is not a system index (number). Usage: planets <system>";
+            Select();
+            return;
+        }
+
+        var systems = GameManager.Instance.systems;
+        if(hit < 1 || hit > systems.Count)
+        {
+            consoleOutput.text += Environment.NewLine + $"[ERR] No system at index {hit}. Please try again. Usage: planets <system>";
+            Select();
+            return;
+        }
+
+        PlanetsManager.Instance.currentSystem = systems[hit - 1];
+        StartCoroutine(PlanetCommand());
+    }
+
     System.Collections.IEnumerator PlanetCommand()
     {
         blockInput = true;
 
-        consoleOutput.text += Environment.NewLine + "[LOG] Fetching database of singles in your observable universe";
+        consoleOutput.text += Environment.NewLine + $"[LOG] Fetching database of singles on System '{PlanetsManager.Instance.currentSystem.name}'";
         yield return new WaitForSeconds(.1f); // Simulate delay
         consoleOutput.text += ".";
         yield return new WaitForSeconds(.5f);
@@ -143,6 +207,12 @@ int selectedSolarSystem;
         yield return new WaitForSeconds(1f);
         //consoleOutput.text += Environment.NewLine + "> Lol. Not implemented yet. Get fucked.";
         //TODO Planet View
+
+        SolarSystem currentSystem = PlanetsManager.Instance.currentSystem;
+
+        // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        PlanetsManager.Instance.PopulatePlanets();
+
 
         GameManager.Instance.OpenPlanetView();
         ConsoleManager.Instance.Deselect();
