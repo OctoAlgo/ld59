@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEditor.SceneManagement;
 
 public class WireGameManager : MonoBehaviour
 {
-    bool isComplete = false;
+    public bool isComplete = false;
 
     public GameObject WireStart0;
     public GameObject WireStart1;
@@ -60,9 +61,40 @@ public class WireGameManager : MonoBehaviour
         }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void CheckCompleted()
     {
+        int count = 0;
+        foreach (Transform child in GameObject.Find("Wire Starts").transform)
+        {
+            if (child.GetComponent<WireScript>().connected)
+            {
+                count++;
+            }
+        }
+        if (count == 5)
+        {
+            isComplete = true;
+            GameObject.Find("Hack Panel").GetComponent<HackPanelScript>().stage += 1;
+            GameObject.Find("Hack Panel").GetComponent<HackPanelScript>().StatusUpdate();
+        }
+    }
+
+    void Reset()
+    {
+        foreach (Transform child in GameObject.Find("Wire Starts").transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in GameObject.Find("Wire Ends").transform)
+        {
+            Destroy(child.gameObject);
+        }
+        isComplete = false;
+    }
+
+    public void LoadGame()
+    {
+        Reset();
         wireStarts.Add(WireStart0);
         wireStarts.Add(WireStart1);
         wireStarts.Add(WireStart2);
@@ -73,9 +105,13 @@ public class WireGameManager : MonoBehaviour
         wireEnds.Add(WireEnd2);
         wireEnds.Add(WireEnd3);
         wireEnds.Add(WireEnd4);
-
         RandomizeOrder();
         InstatiateWires();
+    }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
 
     }
 

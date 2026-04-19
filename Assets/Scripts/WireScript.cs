@@ -39,6 +39,8 @@ public class WireScript : MonoBehaviour
             transform.Find("Wire").transform.localRotation = Quaternion.Euler(0, 0, Mathf.Atan2(endpos.y - startpos.y, endpos.x - startpos.x) * Mathf.Rad2Deg);
             transform.Find("Wire").transform.localScale = new Vector3(Vector3.Distance(startpos, endpos) / 20, 1, 1);
         }
+
+        GameObject.Find("Wire Game Manager").GetComponent<WireGameManager>().CheckCompleted();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
