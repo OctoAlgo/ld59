@@ -1,10 +1,6 @@
 using System;
 using System.Collections;
 using System.Linq;
-using System.Numerics;
-using Mono.Cecil;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class ConsoleManager : MonoBehaviour

@@ -5,12 +5,24 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/TitleUpdated.unity
-    guid: ed88cd1c287f7bd45b48d958febccd36
+    path: Assets/Scenes/Gameplay.unity
+    guid: 635440710d4946edb9146d0eb037e822
+  - enabled: 1
+    path: Assets/Scenes/Console.unity
+    guid: ba54ed6f8a8f08ad4a5e6df69fcdba52
+  - enabled: 1
+    path: Assets/Scenes/PlanetSelection.unity
+    guid: 3a680533c4b243f0cab3f518a2a00075
+  - enabled: 1
+    path: Assets/Scenes/SatelliteConsole.unity
+    guid: 97c002060c7971c8593f1bb90b4cff2b
+  - enabled: 1
+    path: Assets/Scenes/DatingScene.unity
+    guid: 4378b3bb97595dfdd965611c16f00cc8
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: e8cecc5bf11d4def69a54ac530f88824, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 15549f42b364df8d59f7cc50d5b1a629, type: 3}
