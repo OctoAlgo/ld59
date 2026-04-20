@@ -31,6 +31,7 @@ public class EndingManager : MonoBehaviour
         }
 
         alienInfoText.text =
+            $"Your... Perfect Soul-Mate, unique in this universe.\n\n" +
             $"NAME:     {alien.GetFullName()}\n" +
             $"TYPE:     {alien.alienType}\n" +
             $"LIKES:    {alien.likes}\n" +
@@ -48,6 +49,7 @@ public class EndingManager : MonoBehaviour
         Sprite[] frames = {
             alien.imagePair.curiousImage,
             alien.imagePair.happyImage,
+            alien.imagePair.sadImage,
         };
         int i = 0;
         while (true)
