@@ -37,6 +37,7 @@ public class HackPanelScript : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         Unload();
+
     }
 
     public void Unload()
