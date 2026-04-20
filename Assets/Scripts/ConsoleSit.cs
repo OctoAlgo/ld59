@@ -13,14 +13,14 @@ public class ConsoleSit : MonoBehaviour
     void Start()
     {
 
-                if(useSatelliteConsole )
-                {
-                    conMan = SatelliteConsoleManager.Instance;
-                }
-                else
-                {
-                    conMan = ConsoleManager.Instance;
-                }
+        if(useSatelliteConsole )
+        {
+            conMan = SatelliteConsoleManager.Instance;
+        }
+        else
+        {
+            conMan = ConsoleManager.Instance;
+        }
 
         GameManager.Instance.OnConsoleEntered.AddListener(OnConsoleEntered);
         GameManager.Instance.OnConsoleExited.AddListener(OnConsoleExited);
@@ -64,7 +64,7 @@ public class ConsoleSit : MonoBehaviour
             Debug.Log("Player");
             if(Input.GetKeyDown(KeyCode.E) && !isSitting)
             {
-                Debug.Log(useSatelliteConsole + " " + conMan.name);
+                //Debug.Log(useSatelliteConsole + " " + conMan.name);
                 SitDown(conMan);
             }
             else if(Input.GetKeyDown(KeyCode.Escape) && isSitting)

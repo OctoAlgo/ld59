@@ -58,7 +58,6 @@ private Vector3 currentScreenPos;
         Vector3 direction = (transform.position - target.position).normalized;
         transform.position = target.position + direction * targetDistance;
 
-
     }
 
 

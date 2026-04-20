@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     public Camera playerCamera;
 
+    List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
+
 
     void Awake()
     {
@@ -37,12 +41,17 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        SceneManager.LoadScene("Console", LoadSceneMode.Additive);
+        SceneManager.LoadScene("PlanetSelection", LoadSceneMode.Additive);
+        SceneManager.LoadScene("SatelliteConsole", LoadSceneMode.Additive);
     }
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
         systems = GalaxyGenerator.GenerateGalaxy(systemCount, minPlanets, maxPlanetsExclusive);
         winningAlien = PickWinningAlien();
         // TODO: Replace PickWinningAlien here if we decide to do some kind of condition having to be met to have a winning one.
@@ -79,7 +88,6 @@ public class GameManager : MonoBehaviour
     public void EnterConsole(ConsoleManager consoleManager)
     {
         FreezePlayerInput();
-        Debug.Log("Enter Console with" + consoleManager.name);
         
 
         GameManager.Instance.playerCamera.enabled = false;
