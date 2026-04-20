@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+namespace MixedSignals
+{
+    
 public class PlanetsManager : MonoBehaviour
 {
     public static PlanetsManager Instance;
@@ -45,6 +48,7 @@ public class PlanetsManager : MonoBehaviour
 
     internal void PopulatePlanets()
     {
+
         if(planetsHolder.transform.childCount > 0)
         {
             foreach (Transform child in planetsHolder.transform)
@@ -56,7 +60,7 @@ public class PlanetsManager : MonoBehaviour
         for(int i = 0; i < currentSystem.planets.Count; i++)
         {
             Planet planetData = currentSystem.planets[i];
-            float orbitRadius = 5f + i * 3f;
+            float orbitRadius = 4f + i * 2f;
             float angle = UnityEngine.Random.Range(0f, 360f) * Mathf.Deg2Rad;
             Vector3 spawnPos = sun.transform.position + new Vector3(Mathf.Cos(angle) * orbitRadius, 0, Mathf.Sin(angle)) * orbitRadius;
 
@@ -67,4 +71,6 @@ public class PlanetsManager : MonoBehaviour
             move.Init();
         }
     }
+}
+
 }

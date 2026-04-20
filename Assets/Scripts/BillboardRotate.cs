@@ -1,6 +1,8 @@
 using UnityEngine;
 
-public class BillboardRotate : MonoBehaviour
+namespace MixedSignals
+{
+    public class BillboardRotate : MonoBehaviour
 {
 
 public Transform planetRotation;
@@ -20,4 +22,6 @@ public Transform planetRotation;
         transform.rotation = Quaternion.LookRotation(transform.position - PlanetsManager.Instance.planetCamera.transform.position);
 
     }   
+}
+
 }

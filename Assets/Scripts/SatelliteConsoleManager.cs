@@ -5,6 +5,9 @@ using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 
+namespace MixedSignals
+{
+    
 public class SatelliteConsoleManager : ConsoleManager
 {
     public static new SatelliteConsoleManager Instance { get; private set; }
@@ -38,7 +41,7 @@ public class SatelliteConsoleManager : ConsoleManager
                 Select();
             }
 
-        Debug.Log(blockInput + " " + isSelected);
+        //Debug.Log(blockInput + " " + isSelected);
         if(isSelected)
         {
             if(Input.GetKeyDown(KeyCode.Return) && !blockInput)
@@ -127,4 +130,6 @@ public class SatelliteConsoleManager : ConsoleManager
             
             blockInput = false;
         }
+}
+
 }

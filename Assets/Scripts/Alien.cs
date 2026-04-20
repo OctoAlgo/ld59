@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace MixedSignals
+{
+    
 [System.Serializable]
 public class Alien 
 {
@@ -15,8 +18,7 @@ public class Alien
     public float loveMeter;
 
     public Color color;
-    public Image image;
-
+    public AlienImagePair imagePair;
     public string hashX;
     public string hashY;
 
@@ -24,7 +26,7 @@ public class Alien
 
     private static System.Random rand = new System.Random();
 
-    public Alien(string firstName, string lastName, string likes, string dislikes, AlienType alienType, Color color, Image image)
+    public Alien(string firstName, string lastName, string likes, string dislikes, AlienType alienType, Color color, AlienImagePair imagePair)
     {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -33,7 +35,9 @@ public class Alien
         this.alienType = alienType;
         this.loveMeter = 0f;
         this.color = color;
-        this.image = image;
+        
+        //this.image = image;
+        this.imagePair = imagePair;
         
         signalCloudy = false;
 
@@ -74,4 +78,5 @@ public class Alien
         PARTY_GOER,
         LEGALLYDISTINCTDOORMAN,
     }
+}
 }

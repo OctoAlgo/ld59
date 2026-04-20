@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Unity.Android.Gradle;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
-public class ConsoleManager : MonoBehaviour
+namespace MixedSignals
+{
+    public class ConsoleManager : MonoBehaviour
 {
 
 public static ConsoleManager Instance { get; private set; }
@@ -16,7 +19,7 @@ public RenderTexture consoleRenderTexture;
 
 public bool toggleSelected = false;
 internal bool isSelected = false;
-internal bool blockInput = false;
+public bool blockInput = true;
 public TMPro.TMP_InputField inputField;
 public TMPro.TMP_Text consoleOutput;
 
@@ -42,23 +45,25 @@ int selectedSolarSystem;
     void Update()
     {
 
-        // Placeholder. This should be called when opening the PC.
-        if(Input.GetKeyDown(KeyCode.Tab))
-        {
-            Select();
-        }
-
-        if(isSelected)
-        {
-            if(Input.GetKeyDown(KeyCode.Return) && !blockInput)
+            if(Input.GetKeyDown(KeyCode.Return) && !blockInput && isSelected)
             {
+                Debug.Log("command");
+
+                blockInput = true;
+                Deselect();
                 ParseCommand(inputField.text);
                 inputField.text = "<mspace=20px>";
+                blockInput = false;
             }
-        }
+
     }
 
-    public void Select()
+        void Start()
+        {
+            //inputField.onDeselect.AddListener(OnInputFieldDeselect);
+        }
+
+        public void Select()
     {
         isSelected = true;
         inputField.ActivateInputField();
@@ -69,6 +74,14 @@ int selectedSolarSystem;
     {
         isSelected = false;
         inputField.DeactivateInputField();
+    }
+
+    private void OnInputFieldDeselect(string text)
+    {
+        if(!blockInput)
+        {
+            Select();
+        }
     }
 
     void ToggleSelected()
@@ -95,6 +108,8 @@ int selectedSolarSystem;
         string[] parts = cmd.Split(' ');
         string command = parts[0].ToLower();
         string[] args = parts.Skip(1).ToArray();
+
+        Debug.Log($"Parsing Command {command} {args}");
 
         consoleOutput.text += Environment.NewLine + "> " + cmd;
 
@@ -163,6 +178,7 @@ int selectedSolarSystem;
         }
         yield return new WaitForSeconds(.6f);
         consoleOutput.text += Environment.NewLine + $"[LOG] Use 'planets <systemID>' for more info about the planets.";
+        Select();
     }
 
     private void HandlePlanetCommand(string[] args)
@@ -217,7 +233,7 @@ int selectedSolarSystem;
 
 
         GameManager.Instance.OpenPlanetView();
-        ConsoleManager.Instance.Deselect();
+        GameManager.Instance.cursorLocked = false;
 
         blockInput = false;
         Select();
@@ -258,6 +274,8 @@ int selectedSolarSystem;
         consoleOutput.text += Environment.NewLine + $"[LOG] DISLIKES: {alien.dislikes}";
         yield return new WaitForSeconds(.3f); // Simulate delay
         consoleOutput.text += Environment.NewLine + $"[LOG] If you wish to interact with this specimen, align your satellite dish to the corresponding hash and type 'date'.";
+        blockInput = false;
+        Select();
     }
     private IEnumerator DateEstablished(Alien alien)
     {
@@ -292,4 +310,6 @@ int selectedSolarSystem;
             DatingManager.Instance.Show();
         }
     }
+}
+
 }

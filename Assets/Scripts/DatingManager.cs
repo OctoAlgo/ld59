@@ -5,6 +5,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace MixedSignals
+{
+    
 public class DatingManager : MonoBehaviour
 {
     public static DatingManager Instance;
@@ -16,7 +19,7 @@ public class DatingManager : MonoBehaviour
     public GameObject canvasObject;
 
     public List<GameObject> answerButtons;
-
+    public Image datingImage;
     int currentCorrectAnswer = -1;
 
     public int currentDatingCycle;
@@ -40,11 +43,17 @@ public class DatingManager : MonoBehaviour
         {
             // + 1 social credit
             Debug.Log("Yay!");
+            // Love Meter go up
+            // Happy png
+            datingImage.sprite = currentDatingAlien.imagePair.happyImage;
         }
         else
         {
             // Answered Wrongly
             Debug.Log("Nay!");
+            // Love Meter go down
+            // Sad png
+            datingImage.sprite = currentDatingAlien.imagePair.sadImage;
         }
 
         if(currentDatingCycle >= dateLimit)
@@ -53,6 +62,7 @@ public class DatingManager : MonoBehaviour
             Debug.Log("Get ghosted kid");
             Hide();
             GameManager.Instance.UnfreezePlayerInput();
+            GameManager.Instance.DateEnds(currentDatingAlien);
             // Get ghosted kid
         }
         else
@@ -91,11 +101,13 @@ public class DatingManager : MonoBehaviour
     public void Show()
     {
         canvasObject.SetActive(true);
+        GameManager.Instance.cursorLocked = false;
     }
 
     public void Hide()
     {
         canvasObject.SetActive(false);
+        GameManager.Instance.cursorLocked = true;
     }
 
     public void Init(QuestionAnswerPair question, Alien alienData)
@@ -103,6 +115,8 @@ public class DatingManager : MonoBehaviour
         currentDatingAlien = alienData;
         currentCorrectAnswer = question.answers.correctIndex;
         currentDatingCycle = 1;
+
+        datingImage.sprite = alienData.imagePair.curiousImage;
 
         LoadQuestion(question, alienData);
         SetupAnswerButtons(question);
@@ -133,6 +147,9 @@ public class DatingManager : MonoBehaviour
     {
         alienPrompt.text = question.question;
         alienInfo.text = $"NAME: {alienData.GetFullName()}{Environment.NewLine}LIKES: {alienData.likes}{Environment.NewLine}DISLIKES: {alienData.dislikes}";
+        datingImage.color = alienData.color;
         currentCorrectAnswer = question.answers.correctIndex;
     }
+}
+
 }

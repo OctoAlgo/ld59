@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace MixedSignals
+{
+    
 public class ClickInteract : MonoBehaviour
 {
 
@@ -35,4 +38,6 @@ public PlanetMovement currentPlanet;
             }
         }
     }
+}
+
 }

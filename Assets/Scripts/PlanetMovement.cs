@@ -3,6 +3,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace MixedSignals
+{
+    
 public class PlanetMovement : MonoBehaviour
 {
 
@@ -87,5 +90,7 @@ public GameObject planetButtonObject;
         planetData.discovered = true;
         PlanetsManager.Instance.SignalPlanet(planetData.loveInterest);
     }
+
+}
 
 }

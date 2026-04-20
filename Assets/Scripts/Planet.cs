@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 
+namespace MixedSignals
+{
+    
 [Serializable]
 public class Planet
 {
@@ -20,4 +23,6 @@ public class Planet
         this.size = size;
         this.orbitSpeed = orbitSpeed;
     }
+}
+
 }

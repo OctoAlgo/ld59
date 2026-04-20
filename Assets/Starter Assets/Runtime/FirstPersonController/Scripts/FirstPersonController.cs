@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using StarterAssets;
+using UnityEditor.Build.Content;
+using UnityEngine;
+using MixedSignals;
+
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
 
-namespace StarterAssets
-{
 	[RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM
 	[RequireComponent(typeof(PlayerInput))]
@@ -113,13 +115,20 @@ namespace StarterAssets
 		private void Update()
 		{
 			JumpAndGravity();
+			
 			GroundedCheck();
-			Move();
+			if(!GameManager.Instance.playerFrozen)
+			{
+				Move();
+			}
 		}
 
 		private void LateUpdate()
 		{
-			CameraRotation();
+			if(!GameManager.Instance.playerFrozen)
+			{
+				CameraRotation();
+			}
 		}
 
 		private void GroundedCheck()
@@ -265,4 +274,3 @@ namespace StarterAssets
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
 	}
-}

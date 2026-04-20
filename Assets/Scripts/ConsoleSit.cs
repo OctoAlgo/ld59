@@ -1,7 +1,9 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
-
+namespace MixedSignals
+{
+    
 public class ConsoleSit : MonoBehaviour
 {
 
@@ -28,8 +30,12 @@ public class ConsoleSit : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-    }
+        {
+            if(Input.GetKeyDown(KeyCode.Escape) && isSitting)
+            {
+                StandUp(conMan);
+            }
+        }
 
     void SitDown(ConsoleManager conMan)
     {
@@ -61,17 +67,16 @@ public class ConsoleSit : MonoBehaviour
         if(other.CompareTag("Player"))
         {
 
-            Debug.Log("Player");
+            //Debug.Log("Player");
             if(Input.GetKeyDown(KeyCode.E) && !isSitting)
             {
                 //Debug.Log(useSatelliteConsole + " " + conMan.name);
                 SitDown(conMan);
             }
-            else if(Input.GetKeyDown(KeyCode.Escape) && isSitting)
-            {
-                StandUp(conMan);
-            }
+            
         }
     }
+
+}
 
 }

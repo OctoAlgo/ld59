@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56860bb9f9ce8e4e1957879d00d25ba9, type: 3}
+  m_Name: Box Alien
+  m_EditorClassIdentifier: Assembly-CSharp::AlienImagePair
+  curiousImage: {fileID: 21300000, guid: 515654a1d02b41ab68b4990c96f1fa35, type: 3}
+  happyImage: {fileID: 21300000, guid: 4c5b3f26d47e86d7d9253a7775f5cdc5, type: 3}
+  sadImage: {fileID: 21300000, guid: d9c9e73a035561995bbcc44fc0414da4, type: 3}

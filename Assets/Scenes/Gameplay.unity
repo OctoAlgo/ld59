@@ -889,18 +889,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a9648371f07db1db8f3faaec6f984a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  winningAlien:
-    firstName: 
-    lastName: 
-    likes: 
-    dislikes: 
-    alienType: 0
-    loveMeter: 0
-    color: {r: 0, g: 0, b: 0, a: 0}
-    image: {fileID: 0}
-    hashX: 
-    hashY: 
-    signalCloudy: 0
   selectedAlien:
     firstName: 
     lastName: 
@@ -909,13 +897,20 @@ MonoBehaviour:
     alienType: 0
     loveMeter: 0
     color: {r: 0, g: 0, b: 0, a: 0}
-    image: {fileID: 0}
+    imagePair: {fileID: 0}
     hashX: 
     hashY: 
     signalCloudy: 0
   minPlanets: 2
   maxPlanetsExclusive: 6
   systems: []
+  imagePairs:
+  - {fileID: 11400000, guid: 9f8b4f3ba1a801fe68f1f18a202d3e86, type: 2}
+  - {fileID: 11400000, guid: 96f5dd79188f169b19fd8398b2e6943d, type: 2}
+  - {fileID: 11400000, guid: c3934495c9653a60e89eeb9310341858, type: 2}
+  - {fileID: 11400000, guid: 44de88889fd1d31d38a18030bd053669, type: 2}
+  - {fileID: 11400000, guid: faee60f2e344e80b58622bb547abfa53, type: 2}
+  - {fileID: 11400000, guid: 99cd9c9a5f801aba59b559fd5ee00976, type: 2}
   systemCount: 6
   OnConsoleEntered:
     m_PersistentCalls:
@@ -925,7 +920,9 @@ MonoBehaviour:
       m_Calls: []
   selectedHashX: 0000
   selectedHashY: 0000
+  playerFrozen: 0
   playerCamera: {fileID: 1439804456}
+  cursorLocked: 0
 --- !u!1001 &659627218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -936,19 +933,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 920028211c00da04988a69c41a5244ba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 146.61655
+      value: -2.483574
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 920028211c00da04988a69c41a5244ba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 35.131
+      value: 18.65
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 920028211c00da04988a69c41a5244ba, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -30.616
+      value: -5.5654626
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 920028211c00da04988a69c41a5244ba, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.41523555
+      value: 0.9914449
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 920028211c00da04988a69c41a5244ba, type: 3}
       propertyPath: m_LocalRotation.x
@@ -956,7 +953,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 920028211c00da04988a69c41a5244ba, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.909714
+      value: 0.13052595
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 920028211c00da04988a69c41a5244ba, type: 3}
       propertyPath: m_LocalRotation.z
@@ -968,7 +965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 920028211c00da04988a69c41a5244ba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -130.932
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 920028211c00da04988a69c41a5244ba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -2160,8 +2157,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.1975913, y: 2.5164108, z: 4.80284}
-  m_Center: {x: 1.3183916, y: 0.7582054, z: 1.901423}
+  m_Size: {x: 2.481405, y: 2.4630165, z: 3.2750778}
+  m_Center: {x: -0.039687846, y: 0.73150826, z: 1.1375325}
 --- !u!114 &1125297621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5066,6 +5063,7 @@ MonoBehaviour:
   - {fileID: 3218992969749229199}
   - {fileID: 3718019756278506367}
   - {fileID: 3802856020077085964}
+  datingImage: {fileID: 6640051818331637358}
   currentDatingCycle: 0
   currentDatingAlien:
     firstName: 
@@ -5075,7 +5073,7 @@ MonoBehaviour:
     alienType: 0
     loveMeter: 0
     color: {r: 0, g: 0, b: 0, a: 0}
-    image: {fileID: 0}
+    imagePair: {fileID: 0}
     hashX: 
     hashY: 
     signalCloudy: 0

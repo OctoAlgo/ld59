@@ -1,4 +1,5 @@
 using UnityEngine;
+using MixedSignals;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -65,10 +66,22 @@ namespace StarterAssets
 		{
 			sprint = newSprintState;
 		}
-		
-		private void OnApplicationFocus(bool hasFocus)
+
+        void Update()
 		{
-			SetCursorState(cursorLocked);
+			cursorLocked = GameManager.Instance.cursorLocked;
+		}
+
+        private void OnApplicationFocus(bool hasFocus)
+		{
+			if(!GameManager.Instance.playerFrozen)
+			{
+				SetCursorState(cursorLocked);
+			}
+			else
+			{
+				SetCursorState(true);
+			}
 		}
 
 		private void SetCursorState(bool newState)

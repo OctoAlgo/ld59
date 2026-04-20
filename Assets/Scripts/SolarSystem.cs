@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace MixedSignals
+{
+    
 [Serializable]
 public class SolarSystem
 {
@@ -15,4 +18,6 @@ public class SolarSystem
 
         planets = new List<Planet>();
     }
+}
+
 }

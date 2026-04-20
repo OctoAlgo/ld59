@@ -5,12 +5,15 @@ using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
+namespace MixedSignals
+{
+    
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     
-    public Alien winningAlien;
     public Alien selectedAlien;
     public int minPlanets;
     public int maxPlanetsExclusive;
@@ -18,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
 
     public List<SolarSystem> systems;
+    public List<AlienImagePair> imagePairs;
     public int systemCount = 5;
 
     public UnityEvent OnConsoleEntered; 
@@ -25,12 +29,14 @@ public class GameManager : MonoBehaviour
 
     public string selectedHashX;
     public string selectedHashY;
+    public bool playerFrozen;
 
     public Camera playerCamera;
 
     List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
+    public bool cursorLocked;
 
-    void Awake()
+        void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -50,18 +56,22 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        cursorLocked = true;
         systems = GalaxyGenerator.GenerateGalaxy(systemCount, minPlanets, maxPlanetsExclusive);
-        winningAlien = PickWinningAlien();
-        // TODO: Replace PickWinningAlien here if we decide to do some kind of condition having to be met to have a winning one.
-
         DebugLogGalaxy();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(cursorLocked)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
     }
 
     Alien PickWinningAlien()
@@ -87,7 +97,6 @@ public class GameManager : MonoBehaviour
     public void EnterConsole(ConsoleManager consoleManager)
     {
         FreezePlayerInput();
-        
 
         GameManager.Instance.playerCamera.enabled = false;
         SatelliteConsoleManager.Instance.consoleCamera.enabled = false;
@@ -95,9 +104,10 @@ public class GameManager : MonoBehaviour
         PlanetsManager.Instance.planetCamera.enabled = false;
 
         consoleManager.Select();
+        consoleManager.blockInput = false;
         OnConsoleEntered.Invoke();
 
-        //consoleManager.consoleCamera.forceIntoRenderTexture = false;
+        consoleManager.consoleCamera.forceIntoRenderTexture = false;
         consoleManager.consoleCamera.targetTexture = null;
         consoleManager.consoleCamera.enabled = true;
     }
@@ -106,15 +116,16 @@ public class GameManager : MonoBehaviour
     {
         UnfreezePlayerInput();
 
-        GameManager.Instance.playerCamera.enabled = true;
+        GameManager.Instance.playerCamera.enabled = false;
         SatelliteConsoleManager.Instance.consoleCamera.enabled = false;
         ConsoleManager.Instance.consoleCamera.enabled = false;
         PlanetsManager.Instance.planetCamera.enabled = false;
 
         consoleManager.Deselect();
+        consoleManager.blockInput = true;
         OnConsoleExited.Invoke();
 
-        //consoleManager.consoleCamera.forceIntoRenderTexture = true;
+        consoleManager.consoleCamera.forceIntoRenderTexture = true;
         consoleManager.consoleCamera.targetTexture = consoleManager.consoleRenderTexture;
         consoleManager.consoleCamera.enabled = false;
         GameManager.Instance.playerCamera.enabled = true;
@@ -137,13 +148,22 @@ public class GameManager : MonoBehaviour
 
     public void FreezePlayerInput()
     {
+        playerFrozen = true;
+        cursorLocked = false;
         //TODO: Freeze player so he cant move or do other things while inputting text.
 
     }
 
     public void UnfreezePlayerInput()
     {
+        playerFrozen = false;
+        cursorLocked = true;
         //TODO: Unfreeze player input.
+    }
+
+    public static AlienImagePair GetRandomImagePair(List<AlienImagePair> pairs)
+    {
+        return pairs[UnityEngine.Random.Range(0, pairs.Count)];
     }
 
     public Alien GetAlienByHash(string hashX, string hashY)
@@ -151,11 +171,36 @@ public class GameManager : MonoBehaviour
         return AllAliens.FirstOrDefault(a => a.hashX == hashX && a.hashY == hashY);
     }
 
+    internal void DateEnds(Alien guaranteedCloudy)
+    {
+        var all = AllAliens.ToList();
+
+        foreach (var a in all) a.signalCloudy = false;
+
+        all.Remove(guaranteedCloudy);
+
+        for (int i = all.Count - 1; i > 0; i--)
+        {
+            int j = UnityEngine.Random.Range(0, i + 1);
+            (all[i], all[j]) = (all[j], all[i]);
+        }
+
+        int totalHalf = (all.Count + 1) / 2;
+        int randomCount = Mathf.Max(0, totalHalf - 1);
+
+        for (int i = 0; i < randomCount; i++)
+            all[i].signalCloudy = true;
+
+        if (guaranteedCloudy != null)
+            guaranteedCloudy.signalCloudy = true;
+    }
+
     public IEnumerable<Planet> AllPlanets => systems.SelectMany(s => s.planets);
 
     public IEnumerable<Alien> AllAliens => systems.SelectMany(s => s.planets).Select(p => p.loveInterest).Where(a => a != null);
 
-    // Dunno if we ever need these, but this architecture is cool af
+
+    // Dunno if we ever need these, but this is cool af
     // EDIT: I needed them :)
 
 }
@@ -176,11 +221,12 @@ public static class GalaxyGenerator
                 Names.GetRandomDislike(),
                 randomType,
                 UnityEngine.Random.ColorHSV(),
-                null //TODO: Assign image
+                GameManager.GetRandomImagePair(GameManager.Instance.imagePairs)
             );
 
         return tmp;
     }
+
     public static Planet GeneratePlanet()
     {
         var planet = new Planet(
@@ -212,4 +258,5 @@ public static class GalaxyGenerator
         }
         return galaxy;
     }
+}
 }
