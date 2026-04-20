@@ -117,6 +117,7 @@ using UnityEngine.InputSystem;
 			JumpAndGravity();
 			
 			GroundedCheck();
+			
 			if(!GameManager.Instance.playerFrozen)
 			{
 				Move();

@@ -390,6 +390,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4152002021977178770, guid: 8bf0f02d05a93ab9ab05909bb109bb7d, type: 3}
+      propertyPath: m_Name
+      value: HeartContainer
+      objectReference: {fileID: 0}
     - target: {fileID: 4489932049165083905, guid: 8bf0f02d05a93ab9ab05909bb109bb7d, type: 3}
       propertyPath: dateLimit
       value: 3

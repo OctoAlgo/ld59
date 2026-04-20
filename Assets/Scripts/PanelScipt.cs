@@ -1,3 +1,4 @@
+using MixedSignals;
 using UnityEngine;
 
 public class PanelScipt : MonoBehaviour
@@ -16,20 +17,53 @@ public class PanelScipt : MonoBehaviour
         panel.SetActive(false);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnTriggerStay(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        string tempHash = $"{GameManager.Instance.selectedHashX}:{GameManager.Instance.selectedHashY}";
+        bool hashSame = GameManager.Instance.lastHash == tempHash;
+        
+
+        if(hashSame)
         {
-            StartPanel();
+            GameManager.Instance.infoText.gameObject.SetActive(true);
+            GameManager.Instance.infoText.text = "You haven't set a new signal to point at.";
+        }
+        else if(!panel.activeSelf)
+        {
+            GameManager.Instance.infoText.gameObject.SetActive(true);
+            GameManager.Instance.infoText.text = "Press 'E' to interact with the cracking terminal.";
+        }
+        else
+        {
+            GameManager.Instance.infoText.gameObject.SetActive(false);
+        }
+
+        if(other.gameObject.CompareTag("Player"))
+        {
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                if(hashSame)
+                {
+                    // Why you even cracking ya dumbass
+                }
+                else
+                {
+                    GameManager.Instance.FreezePlayerInput();
+                    StartPanel();
+                }
+            }
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                ClosePanel();
+            }
+            
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    void OnTriggerExit(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            ClosePanel();
-        }
+        GameManager.Instance.infoText.gameObject.SetActive(false);
+        ClosePanel();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

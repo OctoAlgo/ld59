@@ -32,7 +32,7 @@ public class SatelliteMove : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
     
-    void Update()
+    void FixedUpdate()
     {
         if (moving)
         {
@@ -53,10 +53,12 @@ public class SatelliteMove : MonoBehaviour
 
     public IEnumerator MoveTowards(string hashOne, string hashTwo)
     {
+        /*
         if (busy)
         {
             yield return false;
         }
+        */
         
         busy = true;
         originalRotationDishHolder = dishHolder.transform.localRotation.eulerAngles;
@@ -64,6 +66,9 @@ public class SatelliteMove : MonoBehaviour
         
         var hashOneValue = StringHash(hashOne);
         var hashTwoValue = StringHash(hashTwo);
+
+        Debug.Log(hashOne + " " + hashTwo);
+        Debug.Log(hashOneValue + " " + hashTwoValue);
         
         target = new Vector3(hashOneValue * moveRangeY, hashTwoValue * moveRangeX, hashTwoValue);
         
@@ -97,8 +102,6 @@ public class SatelliteMove : MonoBehaviour
         yield return new WaitUntil(() => !audioSource.isPlaying);
         
         busy = false;
-
-        yield return true;
     }
     
     private float StringHash(string hash)

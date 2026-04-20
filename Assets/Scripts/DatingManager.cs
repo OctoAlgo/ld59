@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,6 +18,8 @@ public class DatingManager : MonoBehaviour
     public TextMeshProUGUI alienInfo;
     public TextMeshProUGUI alienPrompt;
     public GameObject canvasObject;
+    public GameObject heartContainer;
+    public List<Image> loveMeterHearts;
 
     public List<GameObject> answerButtons;
     public Image datingImage;
@@ -39,12 +42,15 @@ public class DatingManager : MonoBehaviour
 
     public void Answer(int n)
     {
+        float halfHeartStep = 1f / (loveMeterHearts.Count * 2f);
+
         if(n == currentCorrectAnswer)
         {
             // + 1 social credit
             Debug.Log("Yay!");
             // Love Meter go up
             // Happy png
+            currentDatingAlien.loveMeter += halfHeartStep;
             datingImage.sprite = currentDatingAlien.imagePair.happyImage;
         }
         else
@@ -53,17 +59,29 @@ public class DatingManager : MonoBehaviour
             Debug.Log("Nay!");
             // Love Meter go down
             // Sad png
+            currentDatingAlien.loveMeter -= halfHeartStep;
+            if(currentDatingAlien.loveMeter < 0) currentDatingAlien.loveMeter = 0;
             datingImage.sprite = currentDatingAlien.imagePair.sadImage;
         }
 
         if(currentDatingCycle >= dateLimit)
         {
-            currentDatingAlien.signalCloudy = true;
-            Debug.Log("Get ghosted kid");
+            RefreshLoveMeter(currentDatingAlien);  // show the final answer's impact
+
+            if (currentDatingAlien.loveMeter >= 1f)
+            {
+                Debug.Log("You win!");
+                // TODO: trigger win flow
+            }
+            else
+            {
+                currentDatingAlien.signalCloudy = true;
+                Debug.Log("Get ghosted kid");
+            }
+
             Hide();
             GameManager.Instance.UnfreezePlayerInput();
             GameManager.Instance.DateEnds(currentDatingAlien);
-            // Get ghosted kid
         }
         else
         {
@@ -149,7 +167,21 @@ public class DatingManager : MonoBehaviour
         alienInfo.text = $"NAME: {alienData.GetFullName()}{Environment.NewLine}LIKES: {alienData.likes}{Environment.NewLine}DISLIKES: {alienData.dislikes}";
         datingImage.color = alienData.color;
         currentCorrectAnswer = question.answers.correctIndex;
+
+        RefreshLoveMeter(alienData);
+
     }
+
+    void RefreshLoveMeter(Alien alienData)
+{
+    float stepSize = 1f / loveMeterHearts.Count;
+    for (int i = 0; i < loveMeterHearts.Count; i++)
+    {
+        float sliceStart = i * stepSize;
+        float fill = Mathf.Clamp01((alienData.loveMeter - sliceStart) / stepSize);
+        loveMeterHearts[i].fillAmount = fill;
+    }
+}
 }
 
 }

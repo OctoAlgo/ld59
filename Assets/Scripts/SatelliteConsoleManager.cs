@@ -104,6 +104,7 @@ public class SatelliteConsoleManager : ConsoleManager
     
         IEnumerator PointCommand(string hashX, string hashY)
         {
+            GameManager.Instance.crackedAndSpun = false;
 
             blockInput = true;
             consoleOutput.text += Environment.NewLine + $"[LOG] Preparing to point at '{hashX}:{hashY}'";
@@ -114,19 +115,12 @@ public class SatelliteConsoleManager : ConsoleManager
             yield return new WaitForSeconds(.4f); // Simulate delay
             consoleOutput.text += ".";
             yield return new WaitForSeconds(.6f); // Simulate delay
-            consoleOutput.text += Environment.NewLine + $"[ERR]  Auto-Crack binaries not found. Resorting to manual captcha-crack";
+            consoleOutput.text += Environment.NewLine + $"[ERR] Auto-Crack binaries not found. Manual crack via terminal required.";
             yield return new WaitForSeconds(.2f); // Simulate delay
-            consoleOutput.text += ".";
-            yield return new WaitForSeconds(.2f); // Simulate delay
-            consoleOutput.text += ".";
-            yield return new WaitForSeconds(.2f); // Simulate delay
-            consoleOutput.text += ".";
-            yield return new WaitForSeconds(.2f); // Simulate delay
+            consoleOutput.text += Environment.NewLine + $"[LOG] Hash Coordinates reconstructed. Move scheduled. Please perform manual crack.";
 
-            consoleOutput.text += Environment.NewLine + $"[DEV] For debug purposes, this will count as a successful crack. Now pointing at '{hashX}:{hashY}'.";
             GameManager.Instance.selectedHashX = hashX;
             GameManager.Instance.selectedHashY = hashY;
-            //TODO: Open hacking mini game.
             
             blockInput = false;
         }

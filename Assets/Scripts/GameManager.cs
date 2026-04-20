@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.Events;
@@ -32,9 +33,13 @@ public class GameManager : MonoBehaviour
     public bool playerFrozen;
 
     public Camera playerCamera;
+    public SatelliteMove sat;
+    public TextMeshProUGUI infoText;
 
     List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
     public bool cursorLocked;
+    internal bool crackedAndSpun;
+    public string lastHash;
 
         void Awake()
     {
@@ -56,6 +61,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        lastHash = "0000:0000";
         cursorLocked = true;
         systems = GalaxyGenerator.GenerateGalaxy(systemCount, minPlanets, maxPlanetsExclusive);
         DebugLogGalaxy();
@@ -72,13 +78,6 @@ public class GameManager : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
             }
-    }
-
-    Alien PickWinningAlien()
-    {
-        
-        var all = AllAliens.ToList();
-        return all[UnityEngine.Random.Range(0, all.Count)];
     }
 
     void DebugLogGalaxy()
