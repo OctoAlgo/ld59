@@ -25,7 +25,7 @@ public class TeleportScript : MonoBehaviour
             GameObject.Find("TeleportText").GetComponent<TMP_Text>().text = promptText1;
             if (Input.GetKeyDown(KeyCode.E))
             {
-                GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0, 0, 0);
+                GameObject.FindGameObjectWithTag("Player").transform.position = zone2.transform.position;
             }
         }
         else if (zone2.GetComponent<ZoneScript>().playerInZone)
