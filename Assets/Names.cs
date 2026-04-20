@@ -225,6 +225,7 @@ public static class Names
         "Origami",
         "Hiking",
         "Swimming",
+        "Thunder's Guinea Pig Model",
         "Skydiving",
         "Naked Skydiving",
         "Bungee Jumping",
@@ -292,7 +293,7 @@ public static class Names
         new QuestionAnswerPair(
             "Be honest. How's my breath?",
             new Answers(new List<string>()
-            {"Minty fresh", "Toxic, but in a good way", "I can't smell through my spacesuit", "Please stop breathing on me"},
+            {"Minty fresh", "Toxic, but in a good way", "I can't smell through my terminal", "Please do not breathe on me, you freak"},
                 1
                 )),
         new QuestionAnswerPair(
@@ -315,10 +316,35 @@ public static class Names
             )),
         };
 
-    public static List<QuestionAnswerPair> happyQuestions = new List<QuestionAnswerPair>()
+    public static List<QuestionAnswerPair> cheerfulQuestions = new List<QuestionAnswerPair>()
     {
-        
+        new QuestionAnswerPair(
+            "Isn't it just a BEAUTIFUL day to be alive?!", 
+            new Answers(new List<string>() 
+            {"I've had better", "Every day with you is beautiful", "Yeah dude, if you knew how many aliens I talked to today.", "" },
+             1
+             )),
     };
+
+    public static List<QuestionAnswerPair> depressedQuestions = new List<QuestionAnswerPair>()
+    {
+        new QuestionAnswerPair(
+            "You ever blorpscroll and wish you were dead?", 
+            new Answers(new List<string>() 
+            {"I am doing it right now", "Heck no!"},
+             0
+             )),﻿
+    }; 
+
+    public static List<QuestionAnswerPair> partyQuestions = new List<QuestionAnswerPair>()
+    {
+        new QuestionAnswerPair(
+            "What alcohol do you usually drink?", 
+            new Answers(new List<string>() 
+            {"Beer", "Vodka Energy", "A cocktail", "Rum"},
+             1
+             )),
+    }; 
 
         public static List<QuestionAnswerPair> nerdQuestions = new List<QuestionAnswerPair>()
     {
@@ -343,7 +369,7 @@ public static class Names
     };
 
         public static List<QuestionAnswerPair> legallyDistinctDoorManQuestions = new List<QuestionAnswerPair>()
-    {
+        {
         new QuestionAnswerPair(
             "Hello, can you open this door please?",
             new Answers(new List<string>() 
@@ -377,10 +403,31 @@ public static class Names
             3
             )),
 
+     };
+    
 
-    };
+    public static List<QuestionAnswerPair> GetAlienTypeQuestions(Alien.AlienType type)
+    {
+        switch (type)
+        {
+            case Alien.AlienType.NERD: return nerdQuestions;
+            case Alien.AlienType.DEPRESSED: return depressedQuestions;
+            case Alien.AlienType.CHEERFUL: return cheerfulQuestions;
+            case Alien.AlienType.PARTY_GOER: return partyQuestions;
+            case Alien.AlienType.LEGALLYDISTINCTDOORMAN: return legallyDistinctDoorManQuestions;
+            default: return null;
+        }
+    }
 
-
+    public static QuestionAnswerPair GetRandomSpecialQuestion(Alien.AlienType type)
+    {
+        var questions = GetAlienTypeQuestions(type);
+        if (questions != null && questions.Count > 0)
+        {
+            return questions[Random.Range(0, questions.Count)];
+        }
+        return null;
+    } 
 
     public static string GetRandomFirstName()
     {
@@ -405,6 +452,11 @@ public static class Names
     internal static string GetRandomPlanet()
     {
         return planetNames[Random.Range(0, planetNames.Count)];
+    }
+
+    internal static QuestionAnswerPair GetRandomQuestion()
+    {
+        return normal[Random.Range(0, normal.Count)];
     }
 
     internal static string GetRandomSolarSystem()

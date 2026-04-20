@@ -33,6 +33,11 @@ public class SatelliteConsoleManager : ConsoleManager
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Tab) )
+            {
+                Select();
+            }
+
         Debug.Log(blockInput + " " + isSelected);
         if(isSelected)
         {
@@ -41,14 +46,11 @@ public class SatelliteConsoleManager : ConsoleManager
                 blockInput = true;
                 ParseCommand(inputField.text);
                 inputField.text = "<mspace=20px>";
-                blockInput = true;
+                blockInput = false;
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Tab) )
-            {
-                Select();
-            }
+
     }   
 
     void ParseCommand(string cmd)

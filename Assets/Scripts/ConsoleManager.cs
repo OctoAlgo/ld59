@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class ConsoleManager : MonoBehaviour
 {
@@ -118,24 +120,28 @@ int selectedSolarSystem;
             break;
 
             case "date":
-            bool isPointedAtPlanet = false; //TODO: Replace with GameManager Satelite Dish check
+                //TODO: Replace with GameManager Satelite Dish check
 
-                if(isPointedAtPlanet)
-                {
-                    //TODO: Open Dating Screen with GameManager.instance.selectedAlien.
-                }
-                else
-                {
-                    StartCoroutine(FailedDate());
-                }
-                break;
+                Alien tmpAlien = GameManager.Instance.GetAlienByHash(GameManager.Instance.selectedHashX,GameManager.Instance.selectedHashY); 
 
-            default:
-                consoleOutput.text += Environment.NewLine + "Unknown command: '" + command + "'. Type 'help' for a list of commands.";
-                Select();
-                break;
+                    if(tmpAlien != null)
+                    {
+                        StartCoroutine(DateEstablished(tmpAlien));
+                        // Do shit before, console fancies etc.
+                    }
+                    else
+                    {
+                        StartCoroutine(FailedDate());
+                    }
+                    break;
+
+                default:
+                    consoleOutput.text += Environment.NewLine + "Unknown command: '" + command + "'. Type 'help' for a list of commands.";
+                    Select();
+                    break;
         }
     }
+
 
     private IEnumerator ListSystems()
     {
@@ -252,5 +258,38 @@ int selectedSolarSystem;
         consoleOutput.text += Environment.NewLine + $"[LOG] DISLIKES: {alien.dislikes}";
         yield return new WaitForSeconds(.3f); // Simulate delay
         consoleOutput.text += Environment.NewLine + $"[LOG] If you wish to interact with this specimen, align your satellite dish to the corresponding hash and type 'date'.";
+    }
+    private IEnumerator DateEstablished(Alien alien)
+    {
+
+        consoleOutput.text += Environment.NewLine + $"[LOG] Pinging '{alien.hashX}:{alien.hashY}'";
+        yield return new WaitForSeconds(.2f); // Simulate delay
+        consoleOutput.text += ".";
+        yield return new WaitForSeconds(.2f);
+        consoleOutput.text += ".";
+        yield return new WaitForSeconds(.2f);
+        consoleOutput.text += ".";
+        yield return new WaitForSeconds(.3f); // Simulate delay
+        if(alien.signalCloudy)
+        {
+            consoleOutput.text += Environment.NewLine + $"[LOG] Connection refused by host '{alien.firstName}'.";
+            consoleOutput.text += Environment.NewLine + $"[LOG] It seem they are busy, or not in the mood. Try again later.";
+            yield return new WaitForSeconds(.6f); // Simulate delay
+        }
+        else
+        {
+            consoleOutput.text += Environment.NewLine + $"[LOG] Established a connection with host '{alien.firstName}'.";
+            consoleOutput.text += Environment.NewLine + $"[LOG] Opening environment 'DATE.unity'";
+            yield return new WaitForSeconds(.6f); // Simulate delay
+
+            PlanetsManager.Instance.planetCamera.enabled = false;
+            ConsoleManager.Instance.consoleCamera.enabled = true;
+            GameManager.Instance.playerCamera.enabled = true;
+            ConsoleManager.Instance.consoleCamera.targetTexture = ConsoleManager.Instance.consoleRenderTexture;
+            GameManager.Instance.UnfreezePlayerInput();
+
+            DatingManager.Instance.Init(Names.GetRandomQuestion(), alien);
+            DatingManager.Instance.Show();
+        }
     }
 }

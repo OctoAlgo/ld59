@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlanetMovement : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public Planet planetData;
 
 public GameObject selectionIndicator;
 public TMPro.TextMeshProUGUI planetText;
+public GameObject planetButtonObject;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -54,6 +57,18 @@ public TMPro.TextMeshProUGUI planetText;
             case false:
             planetText.text = $"Unknown planet!{Environment.NewLine}What cuties might await?";
             break;
+        }
+
+        if(planetData.loveInterest.signalCloudy)
+        {
+            planetText.text = $"Seems like {planetData.name}'s signal is cloudy. Busy?{Environment.NewLine}Check back later.";
+            planetButtonObject.GetComponent<Button>().interactable = false;
+            planetButtonObject.GetComponentInChildren<TextMeshProUGUI>().text = "ERROR";
+        }
+        else
+        {
+            planetButtonObject.GetComponent<Button>().interactable = true;
+            planetButtonObject.GetComponentInChildren<TextMeshProUGUI>().text = "Signal";
         }
     }
 

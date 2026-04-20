@@ -165,11 +165,16 @@ public static class GalaxyGenerator
 
     public static Alien GenerateAlien() 
     {
+
+        var values = Enum.GetValues(typeof(Alien.AlienType));
+        Alien.AlienType randomType = (Alien.AlienType)values.GetValue(UnityEngine.Random.Range(0, values.Length)); // 5 = number of enum values
+
         Alien tmp = new Alien(
                 Names.GetRandomFirstName(),
                 Names.GetRandomLastName(),
                 Names.GetRandomLike(),
                 Names.GetRandomDislike(),
+                randomType,
                 UnityEngine.Random.ColorHSV(),
                 null //TODO: Assign image
             );

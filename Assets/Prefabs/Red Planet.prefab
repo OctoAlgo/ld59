@@ -478,14 +478,17 @@ MonoBehaviour:
       lastName: 
       likes: 
       dislikes: 
+      alienType: 0
       loveMeter: 0
       color: {r: 0, g: 0, b: 0, a: 0}
       image: {fileID: 0}
       hashX: 
       hashY: 
+      signalCloudy: 0
     discovered: 0
   selectionIndicator: {fileID: 6091539517666462198}
   planetText: {fileID: 1694438060749292768}
+  planetButtonObject: {fileID: 781228510486337406}
 --- !u!96 &1270775738841482729
 TrailRenderer:
   serializedVersion: 4
@@ -694,14 +697,17 @@ MonoBehaviour:
       lastName: 
       likes: 
       dislikes: 
+      alienType: 0
       loveMeter: 0
       color: {r: 0, g: 0, b: 0, a: 0}
       image: {fileID: 0}
       hashX: 
       hashY: 
+      signalCloudy: 0
     discovered: 0
   selectionIndicator: {fileID: 0}
   planetText: {fileID: 0}
+  planetButtonObject: {fileID: 0}
 --- !u!223 &3074248227295558401
 Canvas:
   m_ObjectHideFlags: 0

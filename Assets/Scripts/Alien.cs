@@ -11,6 +11,7 @@ public class Alien
 
     public string likes;
     public string dislikes;
+    public AlienType alienType;
     public float loveMeter;
 
     public Color color;
@@ -19,17 +20,22 @@ public class Alien
     public string hashX;
     public string hashY;
 
+    public bool signalCloudy;
+
     private static System.Random rand = new System.Random();
 
-    public Alien(string firstName, string lastName, string likes, string dislikes, Color color, Image image)
+    public Alien(string firstName, string lastName, string likes, string dislikes, AlienType alienType, Color color, Image image)
     {
         this.firstName = firstName;
         this.lastName = lastName;
         this.likes = likes;
         this.dislikes = dislikes;
+        this.alienType = alienType;
         this.loveMeter = 0f;
         this.color = color;
         this.image = image;
+        
+        signalCloudy = false;
 
         GenerateHashes();
     }
@@ -60,11 +66,12 @@ public class Alien
         return hash;
 
     }
-
-    /*
     public enum AlienType
     {
-        
+        NERD,
+        DEPRESSED,
+        CHEERFUL,
+        PARTY_GOER,
+        LEGALLYDISTINCTDOORMAN,
     }
-    */
 }
