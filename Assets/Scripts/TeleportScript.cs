@@ -10,6 +10,8 @@ public class TeleportScript : MonoBehaviour
     public string promptText1;
     public string promptText2;
 
+    int cooldown = 0;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,22 +21,27 @@ public class TeleportScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (zone1.GetComponent<ZoneScript>().playerInZone)
+        cooldown++;
+        if (zone1.GetComponent<ZoneScript>().playerInZone && cooldown > 60)
         {
             text.SetActive(true);
             GameObject.Find("TeleportText").GetComponent<TMP_Text>().text = promptText1;
             if (Input.GetKeyDown(KeyCode.E))
             {
-                GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0, 0, 0);
+                cooldown = 0;
+                GameObject.FindGameObjectWithTag("Player").transform.position = zone2.transform.position;
+                return;
             }
         }
-        else if (zone2.GetComponent<ZoneScript>().playerInZone)
+        else if (zone2.GetComponent<ZoneScript>().playerInZone && cooldown > 60)
         {
             text.SetActive(true);
             GameObject.Find("TeleportText").GetComponent<TMP_Text>().text = promptText2;
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && cooldown > 30)
             {
+                cooldown = 0;
                 GameObject.FindGameObjectWithTag("Player").transform.position = zone1.transform.position;
+                return;
             }
         }
         else

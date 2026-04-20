@@ -1,5 +1,58 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4106849105742771447
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2365600416132835794}
+  - component: {fileID: 5693709518887600575}
+  m_Layer: 0
+  m_Name: thisistoblockplayerfromfallingdowntheladderhole
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2365600416132835794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4106849105742771447}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00022797473, y: -0.0032302076, z: 0.17364968, w: 0.9848022}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7764052593290427943}
+  m_LocalEulerAnglesHint: {x: 0.09, y: -0.36, z: 20}
+--- !u!65 &5693709518887600575
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4106849105742771447}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.2641152, y: 1.2839142, z: 0.039747518}
+  m_Center: {x: 0.13206285, y: -3.2405162, z: 0.14025623}
 --- !u!1001 &3557790441008666494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -245,6 +298,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: a245d37119a0ac4488bec34727906952, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3951195034726396053}
+    - targetCorrespondingSourceObject: {fileID: 2840114904866129462, guid: a245d37119a0ac4488bec34727906952, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2365600416132835794}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a245d37119a0ac4488bec34727906952, type: 3}
       insertIndex: -1
@@ -406,5 +462,10 @@ AudioDistortionFilter:
 --- !u!4 &5431289175329300474 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a245d37119a0ac4488bec34727906952, type: 3}
+  m_PrefabInstance: {fileID: 5536447624389867537}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7764052593290427943 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2840114904866129462, guid: a245d37119a0ac4488bec34727906952, type: 3}
   m_PrefabInstance: {fileID: 5536447624389867537}
   m_PrefabAsset: {fileID: 0}
