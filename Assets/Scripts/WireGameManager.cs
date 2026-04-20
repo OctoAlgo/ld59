@@ -1,9 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.Mathematics;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using UnityEditor.SceneManagement;
 
 public class WireGameManager : MonoBehaviour
 {

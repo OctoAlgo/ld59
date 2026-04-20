@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
 
     List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
 
-
     void Awake()
     {
         if (Instance != null && Instance != this)
