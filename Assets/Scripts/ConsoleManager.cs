@@ -41,29 +41,32 @@ int selectedSolarSystem;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
             if(Input.GetKeyDown(KeyCode.Tab) )
             {
                 Select();
             }
 
-            if(Input.GetKeyDown(KeyCode.Return) && !blockInput && isSelected)
+            if(isSelected)
             {
-                Debug.Log("command");
+                if(Input.GetKeyDown(KeyCode.Return) && !blockInput)
+                {
+                    Debug.Log("command");
 
-                blockInput = true;
-                Deselect();
-                ParseCommand(inputField.text);
-                inputField.text = "<mspace=20px>";
-                blockInput = false;
+                    blockInput = true;
+                    Deselect();
+                    ParseCommand(inputField.text);
+                    inputField.text = "<mspace=20px>";
+                    blockInput = false;
+            }
             }
 
     }
 
         void Start()
         {
-            //inputField.onDeselect.AddListener(OnInputFieldDeselect);
+            inputField.onDeselect.AddListener(OnInputFieldDeselect);
         }
 
         public void Select()
@@ -264,6 +267,7 @@ int selectedSolarSystem;
 
     public IEnumerator SelectPlanet(Alien alien)
     {
+        blockInput = true;
         PlanetsManager.Instance.planetCamera.enabled = false;
         ConsoleManager.Instance.consoleCamera.enabled = true;
         GameManager.Instance.playerCamera.enabled = false;
@@ -282,7 +286,7 @@ int selectedSolarSystem;
     }
     private IEnumerator DateEstablished(Alien alien)
     {
-
+        blockInput = true;
         consoleOutput.text += Environment.NewLine + $"[LOG] Pinging '{alien.hashX}:{alien.hashY}'";
         yield return new WaitForSeconds(.2f); // Simulate delay
         consoleOutput.text += ".";
@@ -312,6 +316,7 @@ int selectedSolarSystem;
             DatingManager.Instance.Init(Names.GetRandomQuestion(), alien);
             DatingManager.Instance.Show();
         }
+        blockInput = false;
     }
 }
 
