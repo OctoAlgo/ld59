@@ -18,7 +18,6 @@ public class DatingManager : MonoBehaviour
     public TextMeshProUGUI alienInfo;
     public TextMeshProUGUI alienPrompt;
     public GameObject canvasObject;
-    public GameObject heartContainer;
     public List<Image> loveMeterHearts;
 
     public List<GameObject> answerButtons;
@@ -66,22 +65,24 @@ public class DatingManager : MonoBehaviour
 
         if(currentDatingCycle >= dateLimit)
         {
-            RefreshLoveMeter(currentDatingAlien);  // show the final answer's impact
+    RefreshLoveMeter(currentDatingAlien);
 
-            if (currentDatingAlien.loveMeter >= 1f)
+        if (currentDatingAlien.loveMeter >= 1f)
             {
                 Debug.Log("You win!");
-                // TODO: trigger win flow
+                GameManager.Instance.trueLove = currentDatingAlien;
+                Hide();
+                GameManager.Instance.UnfreezePlayerInput();
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Ending", UnityEngine.SceneManagement.LoadSceneMode.Single);
             }
-            else
+        else
             {
                 currentDatingAlien.signalCloudy = true;
                 Debug.Log("Get ghosted kid");
+                Hide();
+                GameManager.Instance.UnfreezePlayerInput();
+                GameManager.Instance.DateEnds(currentDatingAlien);
             }
-
-            Hide();
-            GameManager.Instance.UnfreezePlayerInput();
-            GameManager.Instance.DateEnds(currentDatingAlien);
         }
         else
         {
@@ -96,7 +97,7 @@ public class DatingManager : MonoBehaviour
             }
 
             Debug.Log($"Next Question: {nextQuestion.question}");
-            
+
             LoadQuestion(nextQuestion, currentDatingAlien);
             SetupAnswerButtons(nextQuestion);
             currentCorrectAnswer = nextQuestion.answers.correctIndex;

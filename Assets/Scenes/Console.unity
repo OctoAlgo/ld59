@@ -1440,7 +1440,7 @@ MonoBehaviour:
     \n \n[LOG] ALIENH4X initialized.\n[LOG] Connecting to Mixed Signals Intergalactic
     Dating Server...\n[WRN] Connection unsuccessful. Retrying...\n[LOG] Connection
     established.\n\n> Run 'help' or start the program with '--help' to see available
-    commands.\n"
+    commands.\n> If the input deselects, press TAB to switch back to it.\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1985,6 +1985,7 @@ MonoBehaviour:
   consoleCamera: {fileID: 1802279602}
   consoleRenderTexture: {fileID: 8400000, guid: cf794c19c6690487688fd55581a95116, type: 2}
   toggleSelected: 0
+  blockInput: 1
   inputField: {fileID: 555761201}
   consoleOutput: {fileID: 1115217068}
 --- !u!1660057539 &9223372036854775807

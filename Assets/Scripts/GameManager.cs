@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     
     public Alien selectedAlien;
+    public Alien trueLove;
     public int minPlanets;
     public int maxPlanetsExclusive;
 
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     public List<SolarSystem> systems;
     public List<AlienImagePair> imagePairs;
+    public AlienImagePair legallyDistinctDoorManImagePair;
     public int systemCount = 5;
 
     public UnityEvent OnConsoleEntered; 
@@ -212,8 +214,23 @@ public static class GalaxyGenerator
 
         var values = Enum.GetValues(typeof(Alien.AlienType));
         Alien.AlienType randomType = (Alien.AlienType)values.GetValue(UnityEngine.Random.Range(0, values.Length)); // 5 = number of enum values
+        Alien tmp;
 
-        Alien tmp = new Alien(
+        if(randomType == Alien.AlienType.LEGALLYDISTINCTDOORMAN)
+            {
+                tmp = new Alien(
+                Names.GetRandomFirstName(),
+                Names.GetRandomLastName(),
+                Names.GetRandomLike(),
+                Names.GetRandomDislike(),
+                randomType,
+                UnityEngine.Random.ColorHSV(),
+                (GameManager.Instance.legallyDistinctDoorManImagePair)
+            );
+            }
+            else
+            {
+                tmp = new Alien(
                 Names.GetRandomFirstName(),
                 Names.GetRandomLastName(),
                 Names.GetRandomLike(),
@@ -222,7 +239,7 @@ public static class GalaxyGenerator
                 UnityEngine.Random.ColorHSV(),
                 GameManager.GetRandomImagePair(GameManager.Instance.imagePairs)
             );
-
+            }
         return tmp;
     }
 

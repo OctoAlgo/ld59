@@ -41,8 +41,12 @@ int selectedSolarSystem;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+            if(Input.GetKeyDown(KeyCode.Tab) )
+            {
+                Select();
+            }
 
             if(Input.GetKeyDown(KeyCode.Return) && !blockInput && isSelected)
             {

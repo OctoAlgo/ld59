@@ -8,13 +8,21 @@ public class ConsoleSit : MonoBehaviour
 {
 
     public bool isSitting = false;
+    public bool playerTouch;
     public bool useSatelliteConsole = false;
     ConsoleManager conMan;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
+        {
+            Init();
+                    GameManager.Instance.OnConsoleEntered.AddListener(OnConsoleEntered);
+            GameManager.Instance.OnConsoleExited.AddListener(OnConsoleExited);
+        }
 
+    void Init()
+        {
+            
         if(useSatelliteConsole )
         {
             conMan = SatelliteConsoleManager.Instance;
@@ -23,10 +31,7 @@ public class ConsoleSit : MonoBehaviour
         {
             conMan = ConsoleManager.Instance;
         }
-
-        GameManager.Instance.OnConsoleEntered.AddListener(OnConsoleEntered);
-        GameManager.Instance.OnConsoleExited.AddListener(OnConsoleExited);
-    }
+        }
 
     // Update is called once per frame
     void Update()
@@ -34,6 +39,12 @@ public class ConsoleSit : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Escape) && isSitting)
             {
                 StandUp(conMan);
+            }
+
+            if(playerTouch && !isSitting && Input.GetKeyDown(KeyCode.E))
+            {
+                Init();
+                SitDown(conMan);
             }
         }
 
@@ -65,18 +76,19 @@ public class ConsoleSit : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if(other.CompareTag("Player"))
-        {
-
-            //Debug.Log("Player");
-            if(Input.GetKeyDown(KeyCode.E) && !isSitting)
             {
-                //Debug.Log(useSatelliteConsole + " " + conMan.name);
-                SitDown(conMan);
+                playerTouch = true;
             }
-            
-        }
     }
 
-}
+        private void OnTriggerExit(Collider other)
+        {
+            if(other.CompareTag("Player"))
+            {
+                playerTouch = false;
+            }
+        }
+
+    }
 
 }
