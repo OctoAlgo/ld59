@@ -40,7 +40,7 @@ public class PanelScipt : MonoBehaviour
 
         if(other.gameObject.CompareTag("Player"))
         {
-            if(Input.GetKeyDown(KeyCode.E))
+            if(Input.GetKeyDown(KeyCode.E) && !panel.activeSelf)
             {
                 if(hashSame)
                 {
@@ -52,7 +52,7 @@ public class PanelScipt : MonoBehaviour
                     StartPanel();
                 }
             }
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if(Input.GetKeyDown(KeyCode.Escape) && panel.GetComponent<HackPanelScript>().stage != 3)
             {
                 ClosePanel();
             }

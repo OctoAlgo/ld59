@@ -46,6 +46,8 @@ public class HackPanelScript : MonoBehaviour
         // Win
         GameManager.Instance.StartCoroutine(GameManager.Instance.sat.MoveTowards(GameManager.Instance.selectedHashX,
             GameManager.Instance.selectedHashY));
+
+        gameObject.SetActive(false);
     }
 
     public void Unload()

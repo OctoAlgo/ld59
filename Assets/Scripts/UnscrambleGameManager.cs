@@ -39,7 +39,7 @@ public class UnscrambleGameManager : MonoBehaviour
 
     void SetInputField()
     {
-        transform.Find("InputField").transform.Find("Text Area").Find("Placeholder").GetComponent<TextMeshProUGUI>().text = new string('_', CurrentWord.Length);
+        transform.Find("InputField").transform.Find("Text Area").Find("Placeholder").GetComponent<TextMeshProUGUI>().text = new string('-', CurrentWord.Length);
     }
 
     public void CheckCorrect()
@@ -55,7 +55,7 @@ public class UnscrambleGameManager : MonoBehaviour
                 transform.Find("InputField").GetComponent<TMP_InputField>().text = "Correct!";
                 transform.Find("Scrambled Text").GetComponent<TextMeshProUGUI>().text = CurrentWord;
 
-                GameObject.Find("Hack Panel").GetComponent<HackPanelScript>().stage += 1;
+                GameObject.Find("Hack Panel").GetComponent<HackPanelScript>().stage = 2;
                 GameObject.Find("Hack Panel").GetComponent<HackPanelScript>().StatusUpdate();
             }
         }

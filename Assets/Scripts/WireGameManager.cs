@@ -70,7 +70,7 @@ public class WireGameManager : MonoBehaviour
         if (count == 5)
         {
             isComplete = true;
-            GameObject.Find("Hack Panel").GetComponent<HackPanelScript>().stage += 1;
+            GameObject.Find("Hack Panel").GetComponent<HackPanelScript>().stage = 1;
             GameObject.Find("Hack Panel").GetComponent<HackPanelScript>().StatusUpdate();
         }
     }
