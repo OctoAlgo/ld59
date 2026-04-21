@@ -62,9 +62,6 @@ public class ConnectionSliderScript : MonoBehaviour
                 isComplete = true;
                 isLoading = false;
                 transform.Find("Connecting").GetComponent<TextMeshProUGUI>().text = "Connected!";
-
-                
-
                 GameObject.Find("Hack Panel").GetComponent<HackPanelScript>().stage += 1;
                 GameObject.Find("Hack Panel").GetComponent<HackPanelScript>().StatusUpdate();
             }

@@ -5948,6 +5948,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9f8b4f3ba1a801fe68f1f18a202d3e86, type: 2}
   - {fileID: 11400000, guid: 96f5dd79188f169b19fd8398b2e6943d, type: 2}
   - {fileID: 11400000, guid: 44de88889fd1d31d38a18030bd053669, type: 2}
+  - {fileID: 11400000, guid: 2a19837d9c8d84d1c8316a75ed73afb8, type: 2}
   legallyDistinctDoorManImagePair: {fileID: 11400000, guid: c3934495c9653a60e89eeb9310341858, type: 2}
   systemCount: 6
   OnConsoleEntered:
@@ -12951,8 +12952,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 16.165628, y: 6.017729, z: 2.9089332}
-  m_Center: {x: -7.5827694, y: 0.014149898, z: 0.95454276}
+  m_Size: {x: 16.165634, y: 6.017729, z: 4.688668}
+  m_Center: {x: -7.5827713, y: 0.0141498875, z: 1.844452}
 --- !u!23 &1278902141
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace MixedSignals
 {
@@ -99,7 +98,7 @@ public class GameManager : MonoBehaviour
     {
         FreezePlayerInput();
 
-        GameManager.Instance.playerCamera.enabled = false;
+        Instance.playerCamera.enabled = false;
         SatelliteConsoleManager.Instance.consoleCamera.enabled = false;
         ConsoleManager.Instance.consoleCamera.enabled = false;
         PlanetsManager.Instance.planetCamera.enabled = false;
@@ -117,7 +116,7 @@ public class GameManager : MonoBehaviour
     {
         UnfreezePlayerInput();
 
-        GameManager.Instance.playerCamera.enabled = false;
+        Instance.playerCamera.enabled = false;
         SatelliteConsoleManager.Instance.consoleCamera.enabled = false;
         ConsoleManager.Instance.consoleCamera.enabled = false;
         PlanetsManager.Instance.planetCamera.enabled = false;
@@ -129,7 +128,7 @@ public class GameManager : MonoBehaviour
         consoleManager.consoleCamera.forceIntoRenderTexture = true;
         consoleManager.consoleCamera.targetTexture = consoleManager.consoleRenderTexture;
         consoleManager.consoleCamera.enabled = false;
-        GameManager.Instance.playerCamera.enabled = true;
+        Instance.playerCamera.enabled = true;
     }
 
     public void OpenConsoleView()
@@ -144,7 +143,7 @@ public class GameManager : MonoBehaviour
         ConsoleManager.Instance.consoleCamera.targetTexture = ConsoleManager.Instance.consoleRenderTexture;
         SatelliteConsoleManager.Instance.consoleCamera.targetTexture = SatelliteConsoleManager.Instance.consoleRenderTexture;
 
-        GameManager.Instance.playerCamera.enabled = false;
+        Instance.playerCamera.enabled = false;
     }
 
     public void FreezePlayerInput()
@@ -164,7 +163,7 @@ public class GameManager : MonoBehaviour
 
     public static AlienImagePair GetRandomImagePair(List<AlienImagePair> pairs)
     {
-        return pairs[UnityEngine.Random.Range(0, pairs.Count)];
+        return pairs[Random.Range(0, pairs.Count)];
     }
 
     public Alien GetAlienByHash(string hashX, string hashY)
@@ -182,7 +181,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = all.Count - 1; i > 0; i--)
         {
-            int j = UnityEngine.Random.Range(0, i + 1);
+            int j = Random.Range(0, i + 1);
             (all[i], all[j]) = (all[j], all[i]);
         }
 
@@ -213,7 +212,7 @@ public static class GalaxyGenerator
     {
 
         var values = Enum.GetValues(typeof(Alien.AlienType));
-        Alien.AlienType randomType = (Alien.AlienType)values.GetValue(UnityEngine.Random.Range(0, values.Length)); // 5 = number of enum values
+        Alien.AlienType randomType = (Alien.AlienType)values.GetValue(Random.Range(0, values.Length)); // 5 = number of enum values
         Alien tmp;
 
         if(randomType == Alien.AlienType.LEGALLYDISTINCTDOORMAN)
@@ -224,7 +223,7 @@ public static class GalaxyGenerator
                 Names.GetRandomLike(),
                 Names.GetRandomDislike(),
                 randomType,
-                UnityEngine.Random.ColorHSV(),
+                Random.ColorHSV(),
                 (GameManager.Instance.legallyDistinctDoorManImagePair)
             );
             }
@@ -236,7 +235,7 @@ public static class GalaxyGenerator
                 Names.GetRandomLike(),
                 Names.GetRandomDislike(),
                 randomType,
-                UnityEngine.Random.ColorHSV(),
+                Random.ColorHSV(),
                 GameManager.GetRandomImagePair(GameManager.Instance.imagePairs)
             );
             }
@@ -247,9 +246,9 @@ public static class GalaxyGenerator
     {
         var planet = new Planet(
             Names.GetRandomPlanet(),
-            Color.HSVToRGB(UnityEngine.Random.value, UnityEngine.Random.Range(0.5f, 1f), UnityEngine.Random.Range(0.6f, 1f)),
-            UnityEngine.Random.Range(0.8f, 5f),   // size variation
-            UnityEngine.Random.Range(5f, 15f)        // orbit speed variation
+            Color.HSVToRGB(Random.value, Random.Range(0.5f, 1f), Random.Range(0.6f, 1f)),
+            Random.Range(0.8f, 5f),   // size variation
+            Random.Range(5f, 15f)        // orbit speed variation
         );
         planet.loveInterest = GenerateAlien();
         return planet;
@@ -257,7 +256,7 @@ public static class GalaxyGenerator
     public static SolarSystem GenerateSystem(int minPlanets, int maxPlanetsExclusive)
     {
         var system = new SolarSystem(Names.GetRandomSolarSystem());
-        int planetCount = UnityEngine.Random.Range(minPlanets, maxPlanetsExclusive); // 2-5 planets?
+        int planetCount = Random.Range(minPlanets, maxPlanetsExclusive); // 2-5 planets?
         for (int i = 0; i < planetCount; i++)
         {
             system.planets.Add(GeneratePlanet());

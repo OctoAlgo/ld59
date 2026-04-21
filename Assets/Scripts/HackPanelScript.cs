@@ -39,15 +39,13 @@ public class HackPanelScript : MonoBehaviour
         yield return new WaitForSeconds(1f);
         Unload();
 
-        // Win
-        StartCoroutine(GameManager.Instance.sat.MoveTowards(GameManager.Instance.selectedHashX, GameManager.Instance.selectedHashY));
         GameManager.Instance.crackedAndSpun = true;
-
         GameManager.Instance.lastHash = $"{GameManager.Instance.selectedHashX}:{GameManager.Instance.selectedHashY}";
-
         GameManager.Instance.UnfreezePlayerInput();
-
-
+        
+        // Win
+        GameManager.Instance.StartCoroutine(GameManager.Instance.sat.MoveTowards(GameManager.Instance.selectedHashX,
+            GameManager.Instance.selectedHashY));
     }
 
     public void Unload()
