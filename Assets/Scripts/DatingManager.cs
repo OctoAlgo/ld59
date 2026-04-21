@@ -81,7 +81,13 @@ public class DatingManager : MonoBehaviour
                 Debug.Log("Get ghosted kid");
                 Hide();
                 GameManager.Instance.UnfreezePlayerInput();
+                ConsoleManager.Instance.blockInput = true;
+                GameManager.Instance.ExitConsole(ConsoleManager.Instance);
+                GameManager.Instance.cursorLocked = false;
+                Cursor.lockState = CursorLockMode.None;
+
                 GameManager.Instance.DateEnds(currentDatingAlien);
+                
             }
         }
         else
@@ -114,7 +120,10 @@ public class DatingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(canvasObject.activeInHierarchy)
+            {
+                GameManager.Instance.cursorLocked = false;
+            }
     }
 
     public void Show()

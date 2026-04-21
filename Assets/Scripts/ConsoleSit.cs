@@ -41,7 +41,7 @@ public class ConsoleSit : MonoBehaviour
                 StandUp(conMan);
             }
 
-            if(playerTouch && !isSitting && Input.GetKeyDown(KeyCode.E))
+            if(playerTouch && Input.GetKeyDown(KeyCode.E))
             {
                 Init();
                 SitDown(conMan);
@@ -86,7 +86,9 @@ public class ConsoleSit : MonoBehaviour
             if(other.CompareTag("Player"))
             {
                 playerTouch = false;
+                GameManager.Instance.ExitConsole(conMan);
             }
+
         }
 
     }
