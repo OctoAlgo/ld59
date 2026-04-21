@@ -110,7 +110,9 @@ public class GameManager : MonoBehaviour
         consoleManager.consoleCamera.forceIntoRenderTexture = false;
         consoleManager.consoleCamera.targetTexture = null;
         consoleManager.consoleCamera.enabled = true;
-    }
+
+        GameManager.Instance.GetComponent<AudioSource>().Play();
+        }
 
     public void ExitConsole(ConsoleManager consoleManager)
     {
@@ -129,7 +131,9 @@ public class GameManager : MonoBehaviour
         consoleManager.consoleCamera.targetTexture = consoleManager.consoleRenderTexture;
         consoleManager.consoleCamera.enabled = false;
         Instance.playerCamera.enabled = true;
-    }
+
+        GameManager.Instance.GetComponent<AudioSource>().Stop();
+        }
 
     public void OpenConsoleView()
     {
@@ -144,7 +148,7 @@ public class GameManager : MonoBehaviour
         SatelliteConsoleManager.Instance.consoleCamera.targetTexture = SatelliteConsoleManager.Instance.consoleRenderTexture;
 
         Instance.playerCamera.enabled = false;
-    }
+        }
 
     public void FreezePlayerInput()
     {
@@ -193,7 +197,9 @@ public class GameManager : MonoBehaviour
 
         if (guaranteedCloudy != null)
             guaranteedCloudy.signalCloudy = true;
-    }
+
+        DatingManager.Instance.GetComponent<AudioSource>().Stop();
+        }
 
     public IEnumerable<Planet> AllPlanets => systems.SelectMany(s => s.planets);
 

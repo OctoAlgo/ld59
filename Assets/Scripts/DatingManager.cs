@@ -148,7 +148,8 @@ public class DatingManager : MonoBehaviour
 
         LoadQuestion(question, alienData);
         SetupAnswerButtons(question);
-    }
+        DatingManager.Instance.GetComponent<AudioSource>().Play();
+        }
 
     void SetupAnswerButtons(QuestionAnswerPair question)
     {
