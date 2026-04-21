@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Volumetric Fog
-  m_Shader: {fileID: -6465566751694194690, guid: f084f8bcd19b45d4c9053f5b245490eb, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 4fb5b24e594be16478fa167e57857bff, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -94,11 +94,11 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _Distance: 1000
+    - _Distance: 2
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Fog_Density: 0.005
+    - _Fog_Density: 0.011
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -112,7 +112,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
-    - _Step_Size: 1.32
+    - _Step_Size: 0.89
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
